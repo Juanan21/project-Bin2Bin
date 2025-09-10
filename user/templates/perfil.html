@@ -1,0 +1,37 @@
+{% extends 'hola.html' %}
+
+{% block content %}
+{% csrf_token %}
+<nav>
+    <ul>
+        <li>
+            <a href="/">Inicio</a>
+        </li>
+    </ul>
+</nav>
+
+<h1>Perfil</h1>
+
+<img src="{{imagen.imagen.url}}" width="200">
+
+<h5>usuario: {{request.user.username}}</h5>
+<h5>nombre: {{request.user.first_name}}</h5>
+<h5>apellido: {{request.user.last_name}}</h5>
+<h5>email: {{request.user.email}}</h5>
+<form action="/perfil/" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form1.as_p}}
+    <button>
+        cambiar foto
+    </button>
+</form>
+<form action="/perfil/" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button
+        name="update_email">modificar email
+    </button>
+    {{error}}
+</form>
+{% endblock %}
+
