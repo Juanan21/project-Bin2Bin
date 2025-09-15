@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from .forms import first_lastn, modperfil, imgperfil
 from .models import user_img
+from publi.models import publi
 # Create your views here.
 
 def hola(request):
@@ -73,7 +74,13 @@ def perfil(request):
     else:
         try:
             img_obj = get_object_or_404(user_img, usuario=request.user.id)
-            return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'imagen':img_obj})
+            try:
+                publicaciones = publi.objects.filter(usuario=request.user.id).order_by("-creacion")
+                print(publicaciones)
+                return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'imagen':img_obj, 'publicaciones':publicaciones})
+            except:
+                print(img_obj)
+                return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'imagen':img_obj})
         except:
             return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil})
     

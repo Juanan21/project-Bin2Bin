@@ -5,28 +5,50 @@
 
 <h1>Perfil</h1>
 
+<ul>
 <img src="{{imagen.imagen.url}}" 
 width="150"
 style="border-radius: 25%; margin-right: 10px;">
 
-<h5>usuario: {{request.user.username}}</h5>
-<h5>nombre: {{request.user.first_name}}</h5>
-<h5>apellido: {{request.user.last_name}}</h5>
-<h5>email: {{request.user.email}}</h5>
-<form action="/perfil/" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form1.as_p}}
-    <button>
-        cambiar foto
-    </button>
-</form>
-<form action="/perfil/" method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button
-        name="update_email">modificar email
-    </button>
-    {{error}}
-</form>
+    <li>
+        <h5>usuario: {{request.user.username}}</h5>
+    </li>
+    <li>
+        <h5>nombre: {{request.user.first_name}}</h5>
+    </li>
+    <li>
+        <h5>apellido: {{request.user.last_name}}</h5>
+    </li>
+    <li>
+        <h5>email: {{request.user.email}}</h5>
+    </li>
+
+    <form action="/perfil/" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form1.as_p}}
+        <button>
+            cambiar foto
+        </button>
+    </form>
+    <form action="/perfil/" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button
+            name="update_email">modificar email
+        </button>
+        {{error}}
+    </form>
+</ul>
+<h2>Publicaciones</h2>
+<ul>
+  {% for pub in publicaciones %}
+    <li>
+      <strong>{{ pub.titulo }}</strong> - <strong>{{ pub.descripcion}}</strong> - {{ pub.creacion|date:"d M Y H:i" }} <br>
+      {{ pub.contenido }}
+    </li>
+  {% empty %}
+    <li>No has publicado nada todavía.</li>
+  {% endfor %}
+</ul>
 {% endblock %}
 

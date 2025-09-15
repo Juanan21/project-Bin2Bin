@@ -23,4 +23,4 @@ def publi(request):
         nueva_publi = t.save(commit=False)
         nueva_publi.usuario = request.user
         nueva_publi.save()
-        return perfil(request)
+        return redirect('perfil')
