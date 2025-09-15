@@ -2,11 +2,6 @@
 
 {% block content %}
     <nav>
-    <ul>
-        <li>
-            <a href="/">Inicio</a>
-        </li>
-    </ul>
     <h1>Crea tu publicacion</h1>
     <form action="/publicar/" method="POST">
         {% csrf_token %}

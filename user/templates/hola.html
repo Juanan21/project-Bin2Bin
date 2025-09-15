@@ -26,7 +26,14 @@
                                     <a href="/publicar" class="nav-link active">publicar</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/perfil" class="nav-link active">Perfil</a>
+                                    <a href="/perfil" class="nav-link active d-flex align-items-center">
+                                        <img src="{{imagen.imagen.url}}" 
+                                            alt="Foto de perfil" 
+                                            width="33" 
+                                            height="33"
+                                            style="border-radius: 50%; margin-right: 6px;">
+                                        Perfil
+                                    </a>
                                 </li>
                             {% else %}
                                 <li class="nav-item">
@@ -43,7 +50,14 @@
                                     <a href="/logout" class="nav-link active">cerrar sesion</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/perfil" class="nav-link active">perfil</a>
+                                    <a href="/perfil" class="nav-link active d-flex align-items-center">
+                                        <img src="{{imagen.imagen.url}}" 
+                                            alt="Foto de perfil" 
+                                            width="33" 
+                                            height="33"
+                                            style="border-radius: 50%; margin-right: 6px;">
+                                        Perfil
+                                    </a>
                                 </li>
                             {% else %}
                                 <li class="nav-item">

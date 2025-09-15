@@ -2,17 +2,12 @@
 
 {% block content %}
 {% csrf_token %}
-<nav>
-    <ul>
-        <li>
-            <a href="/">Inicio</a>
-        </li>
-    </ul>
-</nav>
 
 <h1>Perfil</h1>
 
-<img src="{{imagen.imagen.url}}" width="200">
+<img src="{{imagen.imagen.url}}" 
+width="150"
+style="border-radius: 25%; margin-right: 10px;">
 
 <h5>usuario: {{request.user.username}}</h5>
 <h5>nombre: {{request.user.first_name}}</h5>

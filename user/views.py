@@ -11,7 +11,12 @@ def hola(request):
     if request.method == 'POST':
         logout(request)
         return redirect('hola')
-    return render(request, 'hola.html')
+    else:
+        try:
+            img_obj = get_object_or_404(user_img, usuario=request.user.id)
+            return render(request, 'hola.html', {'imagen':img_obj})
+        except:
+            return render(request, 'hola.html')
 
 def signup(request):
     if request.method == 'GET':
@@ -66,9 +71,11 @@ def perfil(request):
                 return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'imagen':imagen, 'error':'email invalido'})
         return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'imagen':imagen})
     else:
-        img_obj = get_object_or_404(user_img, usuario=request.user.id)
-        #imagen = user_img.objects.filter(usuario=request.user.id).last()
-        return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'imagen':img_obj})
+        try:
+            img_obj = get_object_or_404(user_img, usuario=request.user.id)
+            return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'imagen':img_obj})
+        except:
+            return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil})
     
 def signin(request):
     if request.method == 'GET':    
@@ -87,5 +94,9 @@ def signin(request):
             return redirect('perfil')
         
 def log(request):
-    return render(request, 'logout.html')
+    try:
+        img_obj = get_object_or_404(user_img, usuario=request.user.id)
+        return render(request, 'logout.html', {'imagen':img_obj})
+    except:
+        return render(request, 'logout.html')
 
