@@ -9,7 +9,7 @@ from .models import publi
 from user.views import perfil
 from user.models import user_img
 # Create your views here.
-def publi(request):
+def publis(request):
     if request.method == 'GET':
         try:
             img_obj = get_object_or_404(user_img, usuario=request.user.id)
@@ -24,3 +24,7 @@ def publi(request):
         nueva_publi.usuario = request.user
         nueva_publi.save()
         return redirect('perfil')
+    
+def post(request, id):
+    publicacion = get_object_or_404(publi, id=id)
+    return render(request, 'mipubli.html', {'post':publicacion})

@@ -76,7 +76,6 @@ def perfil(request):
             img_obj = get_object_or_404(user_img, usuario=request.user.id)
             try:
                 publicaciones = publi.objects.filter(usuario=request.user.id).order_by("-creacion")
-                print(publicaciones)
                 return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'imagen':img_obj, 'publicaciones':publicaciones})
             except:
                 print(img_obj)
@@ -107,3 +106,4 @@ def log(request):
     except:
         return render(request, 'logout.html')
 
+    

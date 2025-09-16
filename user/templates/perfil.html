@@ -43,8 +43,8 @@ style="border-radius: 25%; margin-right: 10px;">
 <ul>
   {% for pub in publicaciones %}
     <li>
-      <strong>{{ pub.titulo }}</strong> - <strong>{{ pub.descripcion}}</strong> - {{ pub.creacion|date:"d M Y H:i" }} <br>
-      {{ pub.contenido }}
+      <a href="{% url 'post' pub.id %}">
+        <strong>{{ pub.titulo }}</strong> - <strong>{{ pub.descripcion}}</strong> - {{ pub.creacion|date:"d M Y H:i" }} <br></a>
     </li>
   {% empty %}
     <li>No has publicado nada todavía.</li>
