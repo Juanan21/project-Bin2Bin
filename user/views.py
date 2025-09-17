@@ -15,9 +15,11 @@ def hola(request):
     else:
         try:
             img_obj = get_object_or_404(user_img, usuario=request.user.id)
-            return render(request, 'hola.html', {'imagen':img_obj})
+            publicaciones = publi.objects.all().order_by("-creacion")
+            return render(request, 'hola.html', {'imagen':img_obj, 'publicaciones':publicaciones})
         except:
-            return render(request, 'hola.html')
+            publicaciones = publi.objects.all().order_by("-creacion")
+            return render(request, 'hola.html', {'publicaciones': publicaciones})
 
 def signup(request):
     if request.method == 'GET':

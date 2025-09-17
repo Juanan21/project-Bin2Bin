@@ -3,11 +3,13 @@
 {% block content %}
     <nav>
     <h1>Crea tu publicacion</h1>
-    <form action="/publicar/" method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button>
-            publicar
-        </button>
-    </form>
+    <ul>
+        <form action="/publicar/" method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button>
+                publicar
+            </button>
+        </form>
+    </ul>
 {% endblock %}

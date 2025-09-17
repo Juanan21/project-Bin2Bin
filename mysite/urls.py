@@ -30,7 +30,7 @@ urlpatterns = [
     path('logout/', views.log, name = 'logout'),
     path('publicar/', publi_views.publis, name = 'publi'),
     path('imagen/<int:imagen_id>/editar/', views.imgperfil, name='img_perfil'),
-    path('perfil/post/<int:id>/', publi_views.post, name='post')
+    path('perfil/post/<int:post_id>/', publi_views.post, name='post')
 ]
 
 if settings.DEBUG:

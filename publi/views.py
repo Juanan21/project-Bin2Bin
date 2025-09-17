@@ -25,6 +25,9 @@ def publis(request):
         nueva_publi.save()
         return redirect('perfil')
     
-def post(request, id):
-    publicacion = get_object_or_404(publi, id=id)
+def post(request, post_id):
+    publicacion = get_object_or_404(publi, id=post_id)
+    if request.method == 'POST':
+        publicacion.delete()
+        return redirect('perfil')
     return render(request, 'mipubli.html', {'post':publicacion})

@@ -96,8 +96,22 @@
     {% block content %}
         {% load static %}
         <h1>Hola :D</h1>
-        <h5>Bienvenido a Bin2Bin. Somos un equipo que busca darle un nuevo uso a los desechos de otras personas mediante el trueque o donación de estos mismos.</h5> <h2>"La basura de alguien es el tesoro de otro"</h2>
-        <img src="{% static 'img/paisaje.jpg' %}" width="100%" alt="hola">
+        <ul>
+            <h5>Bienvenido a Bin2Bin. Somos un equipo que busca darle un nuevo uso a los desechos de otras personas mediante el trueque o donación de estos mismos.</h5> 
+            <h2>"La basura de alguien es el tesoro de otro"</h2>
+        </ul>
+        <ul>
+            {% for pub in publicaciones %}
+                <li>
+                    <a href="{% url 'post' pub.id %}">
+                        <strong>{{ pub.titulo }}</strong> - <strong>{{ pub.descripcion}}</strong> - {{ pub.creacion|date:"d M Y H:i" }} <br> - {{ pub.usuario }}
+                    </a>
+                </li>
+            {% empty %}
+                <li>No has publicado nada todavía.</li>
+            {% endfor %}
+        </ul>
+
     {% endblock %}
 </body>
 </html>
