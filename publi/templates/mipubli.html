@@ -1,12 +1,50 @@
-<h1>{{ post.titulo }}</h1>
-<p>{{ post.descripcion }}</p>
+{% extends 'hola.html' %}
 
-{% if request.user.id == post.usuario.id %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        <button>
-            Eliminar
-        </button>
-    </form>
+{% block content %}
+    <h1>{{ post.titulo }}</h1>
+    <ul>
+        <p>{{ post.descripcion }}</p>
+    </ul>
 
-{% endif %}
+    {% if request.user.id == post.usuario.id %}
+
+        <h2>Interesados:</h2>
+        {% for inte in interesados %}
+        <ul>
+            <li>
+                <strong>{{ inte.interesado }}</strong>
+            </li>
+        </ul>
+        {% empty %}
+            <ul><li>No hay interesados</li></ul>
+        {% endfor %}
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            <ul>
+                <button>
+                    Eliminar
+                </button>
+            </ul> 
+        </form>
+    {% else %}
+        <form action="" method="POST">
+            {% if hay_interesado %}
+                {% csrf_token %}
+                <ul>
+                    <button>
+                        No me interesa
+                    </button>
+                </ul>
+            {% else %}
+                {% csrf_token %}
+                <ul>
+                    <button>
+                        Me interesa
+                    </button>
+                </ul>
+            {% endif %}
+        </form>
+
+    {% endif %}
+{% endblock %}

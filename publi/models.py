@@ -10,3 +10,8 @@ class publi(models.Model):
     
     def __str__(self):
         return self.titulo + '/' + str(self.usuario)
+
+class Interesado(models.Model):
+    publicante = models.ForeignKey(User, related_name="pub", on_delete=models.CASCADE)
+    interesado = models.ForeignKey(User, related_name="inte", on_delete=models.CASCADE)
+    pk_post = models.ForeignKey("publi", on_delete=models.CASCADE)
