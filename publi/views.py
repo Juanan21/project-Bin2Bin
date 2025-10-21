@@ -20,7 +20,7 @@ def publis(request):
         except:
             return render(request, 'publi.html', {'form': publiform})
     else:
-        t = publiform(request.POST)
+        t = publiform(request.POST, request.FILES)
         nueva_publi = t.save(commit=False)
         nueva_publi.usuario = request.user
         nueva_publi.save()

@@ -7,6 +7,7 @@ class publi(models.Model):
     descripcion = models.TextField(blank=True)
     creacion = models.DateTimeField(auto_now_add=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='imagenes/', blank=True)
     
     def __str__(self):
         return self.titulo + '/' + str(self.usuario)

@@ -4,7 +4,7 @@
     <nav>
     <h1>Crea tu publicacion</h1>
     <ul>
-        <form action="/publicar/" method="POST">
+        <form action="/publicar/" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{form.as_p}}
             <button>

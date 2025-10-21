@@ -104,7 +104,7 @@
             {% for pub in publicaciones %}
                 <li>
                     <a href="{% url 'post' pub.id %}">
-                        <strong>{{ pub.titulo }}</strong> - <strong>{{ pub.descripcion}}</strong> - {{ pub.creacion|date:"d M Y H:i" }} <br> - {{ pub.usuario }}
+                        <strong>{{ pub.titulo }}</strong> - <strong>{{ pub.descripcion}}</strong> - <strong>{{ pub.imagen}}</strong> - {{ pub.creacion|date:"d M Y H:i" }} <br> - {{ pub.usuario }}
                     </a>
                 </li>
             {% empty %}

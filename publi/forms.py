@@ -7,4 +7,4 @@ from django import forms
 class publiform(ModelForm):
     class Meta:
         model = publi
-        fields = ['titulo', 'descripcion']
+        fields = ['titulo', 'descripcion', 'imagen']
