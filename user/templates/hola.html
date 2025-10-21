@@ -108,7 +108,11 @@
                     </a>
                 </li>
             {% empty %}
-                <li>No has publicado nada todavía.</li>
+                {% if request.path != "/perfil/" %}
+                    <li>No se han encontrado publicaciones.</li>
+                {% else %}
+                    <li>No has publicado nada todavía.</li>
+                {% endif %}
             {% endfor %}
         </ul>
 
