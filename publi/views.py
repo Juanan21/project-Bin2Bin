@@ -24,6 +24,7 @@ def publis(request):
         nueva_publi = t.save(commit=False)
         nueva_publi.usuario = request.user
         nueva_publi.save()
+        t.save_m2m()
         return redirect('perfil')
     
 def post(request, post_id):

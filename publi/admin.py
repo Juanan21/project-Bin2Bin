@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import publi, Interesado
+from .models import publi, Interesado, categoria
 
 class adminpubli(admin.ModelAdmin):
     readonly_fields = ('creacion', )
@@ -7,3 +7,4 @@ class adminpubli(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(publi, adminpubli)
 admin.site.register(Interesado)
+admin.site.register(categoria)
