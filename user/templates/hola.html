@@ -9,6 +9,43 @@
     <link rel="icon" href="media/imagenes/logoBin2Bin.png" type="image/x-icon">
     <link rel="stylesheet" href="user/static/style.css">
 </head>
+<style>
+.sidepanel  {
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  height: 450px;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+.sidepanel a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #000000;
+  display: block;
+  transition: 2.9s;
+}
+.sidepanel .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 20 px;
+}
+</style>
+<script>
+function openNav() {
+  document.getElementById("mySidepanel").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidepanel").style.width = "0";
+}
+</script>
 <body>
     <nav class="navbar navbar-expand-lg" style="background-color: #1abea374;" data-bs-theme="light">
         <div class="container-fluid">
@@ -16,6 +53,19 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            {% if request.path == "/" %}
+                <button class="openbtn" onclick="openNav()">☰ Categorías</button>  
+
+
+                <div id="mySidepanel" class="sidepanel">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a>
+                {% for cat in categorias %}
+                    <a href="/?categoria={{ cat.id }}">{{ cat.titulo }}</a>
+                {% endfor %}
+                <a href="/">(todas)</a>
+                </div>
+            {% endif %}
+            
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {% if user.is_authenticated %}
@@ -69,10 +119,12 @@
                         {% endif %}
                     {% endif %}
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search"/>
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                {% if request.path == "/" %}
+                    <form class="d-flex" role="search" action="/">
+                        <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search"/>
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                {% endif %}
             </div>
         </div>
     </nav>
@@ -94,7 +146,7 @@
             </button>
         </form>
     {% endif %}
-    
+
     {% block content %}
         {% load static %}
         <h1>Hola :D</h1>

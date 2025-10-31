@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from .forms import first_lastn, modperfil, imgperfil
 from .models import user_img
-from publi.models import publi
+from publi.models import publi,categoria
 # Create your views here.
 
 def hola(request):
@@ -13,20 +13,19 @@ def hola(request):
         logout(request)
         return redirect('hola')
     else:
-        try:
+        categorias = categoria.objects.all().order_by("titulo")
+        if request.GET.get("categoria"):
+            publicaciones = publi.objects.filter(categorias__id=request.GET["categoria"]).order_by("-creacion")
+        elif request.GET.get("search"):
             publicaciones = publi.objects.filter(titulo__contains=request.GET["search"]).order_by("-creacion")
-            try:
-                img_obj = get_object_or_404(user_img, usuario=request.user.id)
-                return render(request, 'hola.html', {'imagen':img_obj, 'publicaciones':publicaciones})
-            except:
-                return render(request, 'hola.html', {'publicaciones':publicaciones})
+        else:
+            publicaciones = publi.objects.all().order_by("-creacion")            
+        try:
+            img_obj = get_object_or_404(user_img, usuario=request.user.id)
+            return render(request, 'hola.html', {'imagen':img_obj, 'publicaciones':publicaciones, 'categorias':categorias})
         except:
-            publicaciones = publi.objects.all().order_by("-creacion")
-            try:
-                img_obj = get_object_or_404(user_img, usuario=request.user.id)
-                return render(request, 'hola.html', {'imagen':img_obj, 'publicaciones':publicaciones})
-            except:
-                return render(request, 'hola.html', {'publicaciones':publicaciones})
+            return render(request, 'hola.html', {'publicaciones':publicaciones, 'categorias':categorias})
+
 
 def signup(request):
     if request.method == 'GET':
