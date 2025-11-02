@@ -158,7 +158,7 @@ function closeNav() {
             {% for pub in publicaciones %}
                 <li>
                     <a href="{% url 'post' pub.id %}">
-                        <strong>{{ pub.titulo }}</strong> - <strong>{{ pub.descripcion}}</strong> - </strong> - {{ pub.creacion|date:"d M Y H:i" }} <br> - {{ pub.usuario }}
+                        <strong>{{ pub.titulo }}</strong> - <strong>{{ pub.descripcion}}</strong> -- {{ pub.creacion|date:"d M Y H:i" }} <br> - {{ pub.usuario }}
                     </a>
                     {% if pub.imagen.url != blank %}
                         <div>

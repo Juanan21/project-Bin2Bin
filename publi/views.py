@@ -1,14 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
-from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from .forms import publiform
-from user.forms import modperfil
 from .models import publi, Interesado
-from user.views import perfil
 from user.models import user_img
+from django.core.mail import send_mail, EmailMessage
 # Create your views here.
 def publis(request):
     if request.method == 'GET':
@@ -43,6 +39,20 @@ def post(request, post_id):
                 return redirect(reverse('post', args=[post_id]))
             else:
                 Interesado.objects.create(publicante_id=usuario2, interesado_id=usuario1, pk_post_id=post_id)
+                asunto = request.user.username + " se ha interesado en " + "'" + publicacion.titulo + "'"
+                mensaje = "¡Hola! He visto tu publicación y me ha interesado mucho. Por favor, responde este correo para seguir en contacto. :)" \
+                "\nAtentamente: " + request.user.first_name + " " + request.user.last_name
+                remitente = request.user.email
+                destinatario = publicacion.usuario.email
+                from_email = f"Bin2Bin <miBin2Bin@gmail.com>"
+                email = EmailMessage(
+                    subject=asunto,
+                    body=f"{mensaje}",
+                    from_email=from_email,
+                    to=[destinatario],
+                    reply_to=[remitente],
+                )
+                email.send(fail_silently=False)
                 return redirect(reverse('post', args=[post_id]))
     else:
         interesados = Interesado.objects.filter(pk_post_id=post_id)

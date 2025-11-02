@@ -26,7 +26,6 @@ def hola(request):
         except:
             return render(request, 'hola.html', {'publicaciones':publicaciones, 'categorias':categorias})
 
-
 def signup(request):
     if request.method == 'GET':
         titulo = 'Hola, bienvenido. Crea una cuenta'
@@ -40,7 +39,6 @@ def signup(request):
     else:
         if request.POST['password1'] == request.POST['password2']:
             try:
-                #first_last = first_lastn(request.POST)
                 usuario = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'], first_name=request.POST['nombre'], last_name=request.POST['apellido'], email=request.POST['email'])
                 imagen_form = imgperfil(request.POST, request.FILES)
                 usuario.save()
@@ -49,7 +47,6 @@ def signup(request):
                     imagen = imagen_form.save(commit=False)
                     imagen.usuario = usuario 
                     imagen.save()
-                print(request.POST)
                 return redirect('perfil')
             except:
                 titulo = 'Nombre de usuario ya existente. Intente con otro'
