@@ -1,0 +1,33 @@
+/* General stuff */
+:root {
+  --border: rgba(50, 65, 65, 0.196);
+  --box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.053);
+}
+/* Post layout*/
+
+.publicaciones {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 30px;
+  background: rgba(242, 247, 248, 0.44);
+  border-radius: 8px;
+  flex-direction: column;
+  padding: 25px;  
+}
+
+.card-publi {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.03);
+}
+.card-publi img{
+  padding: 5px;
+  height: 200px;
+  width: 210px;
+  border-radius: 5%;
+  object-fit: cover;
+}

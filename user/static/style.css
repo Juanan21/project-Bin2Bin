@@ -137,12 +137,9 @@ h2 {
 
 .publis .posts {
   flex: 1;
-  display: grid;
-  grid-template-row: 1fr 1fr;
   gap: 10px;
   overflow-y: auto;
   padding: 2px;
-
 }
 
 .publis .post {

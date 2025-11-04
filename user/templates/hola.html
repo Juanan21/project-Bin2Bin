@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bin2Bin</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
     <link rel="icon" href="media/imagenes/logoBin2Bin.png" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'home.css' %}">
 </head>
 <style>
 .sidepanel  {
@@ -153,25 +155,24 @@ function closeNav() {
             <h5>Bienvenido a Bin2Bin. Somos un equipo que busca darle un nuevo uso a los desechos de otras personas mediante el trueque o donación de estos mismos.</h5> 
             <h2>"La basura de alguien es el tesoro de otro"</h2>
         </ul>
-        <ul>
-            {% for pub in publicaciones %}
-                <li>
-                    <a href="{% url 'post' pub.id %}">
-                        <strong>{{ pub.titulo }}</strong> - <strong>{{ pub.descripcion}}</strong> -- {{ pub.creacion|date:"d M Y H:i" }} <br> - {{ pub.usuario }}
-                    </a>
+        
+    <div class="container">
+        <div class="publicaciones">
+                {% for pub in publicaciones %}
+                <div class="card-publi">
                     {% if pub.imagen.url != blank %}
-                        <div>
                             <img src="{{pub.imagen.url}}"
-                            alt="{{pub.titulo}}"
-                            width="150"
-                            style="border-radius: 15%; margin-right: 10px;"/>
-                        </div>
+                            alt="{{pub.titulo}}"/>
                     {% else %}
                         <div>
-                            <a>no hay imagenes</a>
+                            <img src="\static\img\noimg.jpg"/>
                         </div>
                     {% endif %}
-                </li>
+                    <a href="{% url 'post' pub.id %}">
+                    <strong>{{ pub.titulo }}</strong> - <strong>{{ pub.descripcion}}</strong> -- {{ pub.creacion|date:"d M Y H:i" }} <br> - {{ pub.usuario }}
+                    </a>
+                    </div>
+                    
             {% empty %}
                 {% if request.path != "/perfil/" %}
                     <li>No se han encontrado publicaciones.</li>
@@ -179,12 +180,10 @@ function closeNav() {
                     <li>No has publicado nada todavía.</li>
                 {% endif %}
             {% endfor %}
-        </ul>
-
+            
+            </div>
+        </div>
+    </div>
     {% endblock %}
 </body>
 </html>
-
-
-    
-    
