@@ -136,3 +136,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "miBin2Bin@gmail.com"
 EMAIL_HOST_PASSWORD = "czvb qlba mzap zbaw"
 
+##Esto lo hizo el ayudante, estudiar
+LOGIN_URL = "/signin/"

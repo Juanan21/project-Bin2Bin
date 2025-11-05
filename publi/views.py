@@ -4,8 +4,12 @@ from django.contrib.auth import login, logout, authenticate
 from .forms import publiform
 from .models import publi, Interesado
 from user.models import user_img
+#Se llama decorador
+from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail, EmailMessage
 # Create your views here.
+
+
 def publis(request):
     if request.method == 'GET':
         try:
@@ -23,6 +27,7 @@ def publis(request):
         t.save_m2m()
         return redirect('perfil')
     
+@login_required
 def post(request, post_id):
     publicacion = get_object_or_404(publi, id=post_id)
     if request.method == 'POST':
