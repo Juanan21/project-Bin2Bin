@@ -161,17 +161,23 @@ function closeNav() {
                 {% for pub in publicaciones %}
                 <div class="card-publi">
                     {% if pub.imagen.url != blank %}
+                    <a href="{% url 'post' pub.id %}">
                             <img src="{{pub.imagen.url}}"
                             alt="{{pub.titulo}}"/>
                     {% else %}
                         <div>
                             <img src="\static\img\noimg.jpg"/>
                         </div>
-                    {% endif %}
-                    <a href="{% url 'post' pub.id %}">
-                    <strong>{{ pub.titulo }}</strong> - <strong>{{ pub.descripcion}}</strong> -- {{ pub.creacion|date:"d M Y H:i" }} <br> - {{ pub.usuario }}
                     </a>
-                    </div>
+                    {% endif %}
+                <div class="details">
+                    <a href="{% url 'post' pub.id %}">
+                    <strong>{{ pub.titulo }}</strong> - <strong>{{ pub.descripcion}}</strong> 
+                    <p>{{ pub.creacion|date:"d M Y H:i" }}
+                    - {{ pub.usuario }}</p>
+                    </a>
+                </div>
+                </div>
                     
             {% empty %}
                 {% if request.path != "/perfil/" %}

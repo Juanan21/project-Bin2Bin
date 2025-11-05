@@ -14,6 +14,10 @@
   padding-top: 5px;
 }
 
+a {
+  background-color: none;
+}
+
 h2 {
   color: rgba(17, 61, 47, 0.653);
   font-size: 30px;

@@ -1,5 +1,6 @@
 /* General stuff */
 :root {
+  --secondary-color: rgba(63, 79, 74, 0.503);
   --border: rgba(50, 65, 65, 0.196);
   --box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.053);
 }
@@ -17,17 +18,43 @@
 
 .card-publi {
   display: flex;
-  align-items: center;
-  padding: 15px;
+  align-items: left;
   display: flex;
   flex-direction: column;
   background-color: white;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease-in, box-shadow 0.2s ease;
+  /*Animacion!!*/
+  animation: slide-in 2s ease-in alternate slide-in;
+}
+
+.card-publi:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.056);
 }
 .card-publi img{
-  padding: 5px;
-  height: 200px;
-  width: 210px;
-  border-radius: 5%;
+  height: 290px;
+  width: 100%;
   object-fit: cover;
+}
+
+.details {
+  padding: 10px 20px 20px 10px;
+}
+.details a {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+/* Animation details!! */
+@keyframes slide-in {
+  from {
+    translate: 150vw 0;
+    sclae: 200% 1;
+  }
+
+  to {
+    translate: 0 0;
+    scale: 100% 1;
+  }
 }
