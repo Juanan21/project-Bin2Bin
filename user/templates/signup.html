@@ -21,10 +21,15 @@
 
                 <form action="/signup/" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
                     {% csrf_token %}
-                    {{form1}}
                     <div class="form-row">
+                        
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label offset-md-3 my-3 ">Seleccione una foto de perfil:</label>
+                            <input class="form-control" type="file" accept="image/*" id="formFile" name="imagen" style="display: none">
+                        </div>
+                        
                         <div class="position-relative">
-                            <label for="username" class="mt-5">Nombre de usuario</label>
+                            <label for="username" class="mt-1">Nombre de usuario</label>
                             <input type="text" class="form-control mt-1" name="username" id="username"
                                 placeholder="Escribe tu nombre de ususario" required>
                             <div class="valid-tooltip">
