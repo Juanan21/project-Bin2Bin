@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bin2Bin</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
-    <link rel="icon" href="media/imagenes/logoBin2Bin.png" type="image/x-icon">
+    <link rel="icon" href="{% static '/img/Bin2Bin.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'home.css' %}">
 </head>
 <style>
@@ -149,12 +149,6 @@ function closeNav() {
 
     {% block content %}
         {% load static %}
-        <h1>Hola :D</h1>
-        <ul>
-            <h5>Bienvenido a Bin2Bin. Somos un equipo que busca darle un nuevo uso a los desechos de otras personas mediante el trueque o donación de estos mismos.</h5> 
-            <h2>"La basura de alguien es el tesoro de otro"</h2>
-        </ul>
-        
     <div class="container">
         <div class="publicaciones">
                 {% for pub in publicaciones %}

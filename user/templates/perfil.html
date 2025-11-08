@@ -9,13 +9,20 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 
+<!--layout general-->
 <div class="main">
     <div class="box pic">
         <img class="rounded-circle" 
         src="{{imagen.imagen.url}}">
-        <button class="btn">
+        <form action="/perfil/" method="POST" enctype="multipart/form-data" class="img-form">
+        {% csrf_token %}     
+        <input type="file" name="imagen" id="file-input" style="display:none;"
+                onchange="this.form.submit()">
+        <button type="button" class="btn" onclick="document.getElementById('file-input').click()">
             <i class="bi bi-camera"></i>
         </button>
+        </form>
+
     </div>
 
 <!--Nombre completo / usuario/correo-->
@@ -56,7 +63,6 @@
                         <li>No has publicado nada todavía.</li>
                     {% endif %}
                 {% endfor %}
-        </div>
             </div>
         </div>
     </div>

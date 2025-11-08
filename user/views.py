@@ -75,7 +75,8 @@ def perfil(request):
                 mod.save()
             else:
                 return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'imagen':imagen, 'error':'email invalido'})
-        return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'imagen':imagen})
+        #return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'imagen':imagen})
+        return redirect('perfil')
     else:
         try:
             img_obj = get_object_or_404(user_img, usuario=request.user.id)
