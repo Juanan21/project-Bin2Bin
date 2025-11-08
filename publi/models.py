@@ -14,6 +14,9 @@ class publi(models.Model):
     creacion = models.DateTimeField(auto_now_add=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='imagenes/', blank=True)
+    imagen2 = models.ImageField(upload_to='imagenes/', blank=True)
+    imagen3 = models.ImageField(upload_to='imagenes/', blank=True)
+    
     categorias = models.ManyToManyField(categoria)
 
     def __str__(self):

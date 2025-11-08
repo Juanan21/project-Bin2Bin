@@ -6,6 +6,13 @@
     {% if post.imagen.url != blank %}
     <img src="{{post.imagen.url}}" alt="{{post.titulo}}" />
     {% endif %}
+    {% if post.imagen2.url != blank %}
+    <img src="{{post.imagen2.url}}" alt="{{post.titulo}}" />
+    {% endif %}
+    {% if post.imagen3.url != blank %}
+    <img src="{{post.imagen3.url}}" alt="{{post.titulo}}" />
+    {% endif %}
+
 
     <ul>
         <p>{{ post.descripcion }}</p>

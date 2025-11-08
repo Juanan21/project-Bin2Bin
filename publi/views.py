@@ -14,9 +14,7 @@ def publis(request):
     if request.method == 'GET':
         try:
             img_obj = get_object_or_404(user_img, usuario=request.user.id)
-            return render(request, 'publi.html', {
-            'form': publiform, 'imagen':img_obj
-            })
+            return render(request, 'publi.html', {'form': publiform, 'imagen':img_obj})
         except:
             return render(request, 'publi.html', {'form': publiform})
     else:
@@ -25,6 +23,7 @@ def publis(request):
         nueva_publi.usuario = request.user
         nueva_publi.save()
         t.save_m2m()
+
         return redirect('perfil')
     
 @login_required
