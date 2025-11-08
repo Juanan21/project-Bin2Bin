@@ -9,8 +9,8 @@ class categoria(models.Model):
         return self.titulo
 
 class publi(models.Model):
-    titulo = models.CharField(max_length=100)
-    descripcion = models.TextField(blank=True)
+    titulo = models.CharField(max_length=25)
+    descripcion = models.TextField(blank=True, max_length=110)
     creacion = models.DateTimeField(auto_now_add=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='imagenes/', blank=True)
