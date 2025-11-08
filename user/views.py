@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
-from .forms import first_lastn, modperfil, imgperfil
+from .forms import first_lastn, modperfil, imgperfil, EmailForm
 from .models import user_img
 from publi.models import publi,categoria
+from django.core.mail import send_mail, EmailMessage
 # Create your views here.
 
 def hola(request):
@@ -75,7 +77,6 @@ def perfil(request):
                 mod.save()
             else:
                 return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'imagen':imagen, 'error':'email invalido'})
-        #return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'imagen':imagen})
         return redirect('perfil')
     else:
         try:
@@ -88,6 +89,34 @@ def perfil(request):
                 return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'imagen':img_obj})
         except:
             return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil})
+        
+def verperfil(request, username):
+    if request.method == 'GET':
+        interesado = get_object_or_404(User, username=username)
+        img_obj = get_object_or_404(user_img, usuario=request.user.id)
+        img_inte = get_object_or_404(user_img, usuario=interesado.id)
+        publicaciones = publi.objects.filter(usuario=interesado).order_by("-creacion")
+        return render(request,'verperfil.html', {'imagen':img_obj, 'publicaciones':publicaciones, 'img_inte':img_inte, 'interesado':interesado, 'form':EmailForm})
+    else:
+        form = EmailForm(request.POST)
+        if form.is_valid():
+            interesado = get_object_or_404(User, username=username)
+            asunto = request.user.username + " te ha enviado un mensaje"
+            mensaje = form.cleaned_data['mensaje']
+            remitente = request.user.email
+            destinatario = interesado.email
+            from_email = f"Bin2Bin <miBin2Bin@gmail.com>"
+            email = EmailMessage(
+                        subject=asunto,
+                        body=f"{mensaje}",
+                        from_email=from_email,
+                        to=[destinatario],
+                        reply_to=[remitente],
+                    )
+            email.send(fail_silently=False)
+            return redirect(reverse('ver_perfil', args=[username]))
+        else:
+            return redirect(reverse('ver_perfil', args=[username]))
     
 def signin(request):
     if request.method == 'GET':    

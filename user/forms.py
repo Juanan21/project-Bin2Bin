@@ -24,3 +24,6 @@ class imgperfil(ModelForm):
     class Meta:
         model = user_img
         fields = ['imagen']
+
+class EmailForm(forms.Form):
+    mensaje = forms.CharField(label='Mensaje', widget=forms.Textarea)

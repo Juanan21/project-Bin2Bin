@@ -20,6 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from publi import views as publi_views
 from user import views
+from user.views import verperfil
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,7 +31,8 @@ urlpatterns = [
     path('logout/', views.log, name = 'logout'),
     path('publicar/', publi_views.publis, name = 'publi'),
     path('imagen/<int:imagen_id>/editar/', views.imgperfil, name='img_perfil'),
-    path('post/<int:post_id>/', publi_views.post, name='post')
+    path('post/<int:post_id>/', publi_views.post, name='post'),
+    path('perfil/<str:username>/', views.verperfil, name='ver_perfil')
 ]
 
 if settings.DEBUG:

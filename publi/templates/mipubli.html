@@ -16,9 +16,11 @@
         <h2>Interesados:</h2>
         {% for inte in interesados %}
         <ul>
-            <li>
-                <strong>{{ inte.interesado }}</strong>
-            </li>
+            <a href="{% url 'ver_perfil' inte.interesado %}">
+                <li>
+                    <strong>{{ inte.interesado }}</strong>
+                </li>
+            </a>
         </ul>
         {% empty %}
             <ul><li>No hay interesados</li></ul>

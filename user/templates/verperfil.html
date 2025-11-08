@@ -1,0 +1,116 @@
+{% extends 'hola.html' %}
+{% block content %}
+{% csrf_token %}
+
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<!--layout general-->
+<div class="main">
+    <div class="box pic">
+        <img class="rounded-circle" 
+        src="{{img_inte.imagen.url}}">
+    </div>
+
+<!--Nombre completo / usuario/correo-->
+    <div class="box det">
+      <h1 class="display-3">{{interesado.first_name}} {{interesado.last_name}}</h1>
+      <p class="blockquote">
+        {{interesado.username}}</p>
+      <p class="lead">
+        {{interesado.email}}
+        <form method = "POST">
+            {% csrf_token %}
+            <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#apartado">
+                <i class="bi bi-envelope"></i> Enviar mensaje
+            </button>
+            <div class="collapse mt-3" id="apartado">
+                <textarea class="form-control mb-2" name="mensaje" rows="4" placeholder="Escribe tu mensaje..."></textarea>
+                <button class="btn btn-success" type="submit">Enviar</button>
+            </div>
+        </form></p> 
+    </div>
+
+<!-- descripción -->
+    <div class="box desc">
+        <div class="card">
+            <div class="card-body">
+        descripcion
+            </div>
+        </div>
+    </div>
+
+<!-- publi stuff -->
+    <div class="box publis">
+        <h2> publicaciones </h2>
+        <div class="posts">
+            <div class="post">
+                {% for pub in publicaciones %}
+                    <a href="{% url 'post' pub.id %}">
+                        {% if pub.imagen.url != blank %}
+                            <img src="{{pub.imagen.url}}"/>                
+                    {% else %}
+                            <a>no hay imagenes</a>
+                    {% endif %}
+                    </a>
+                {% empty %}
+                    {% if request.path != "/perfil/" %}
+                        <li>No se han encontrado publicaciones.</li>
+                    {% else %}
+                        <li>No has publicado nada todavía.</li>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+<ul>
+    <li>
+        <h5>usuario: {{request.user.username}}</h5>
+    </li>
+    <li>
+        <h5>nombre: {{request.user.first_name}}</h5>
+    </li>
+    <li>
+        <h5>apellido: {{request.user.last_name}}</h5>
+    </li>
+    <li>
+        <h5>email: {{request.user.email}}</h5>
+    </li>
+    
+
+    <form action="/perfil/" method="POST" enctype="multipart/form-data" class="Fotobtn">
+        {% csrf_token %}
+        {{form1.as_p}} 
+        <button>
+            cambiar foto
+        </button>
+    </form>
+    <form action="/perfil/" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button
+            name="update_email">modificar email
+        </button>
+        {{error}}
+    </form>
+</ul>
+<h2>Mis publicaciones</h2>
+<ul>
+  {% for pub in publicaciones %}
+    <li>
+      <a href="{% url 'post' pub.id %}">
+        <strong>{{ pub.titulo }}</strong> - <strong>{{ pub.descripcion}}</strong> - <strong>{{ pub.imagen}}</strong> - {{ pub.creacion|date:"d M Y H:i" }} <br></a>
+    </li>
+  {% empty %}
+    <li>No has publicado nada todavía.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
