@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bin2Bin</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="icon" href="{% static '/img/Bin2Bin.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'home.css' %}">
 </head>
@@ -14,13 +15,14 @@
   width: 0;
   position: fixed;
   z-index: 1;
-  height: 450px;
+  height: 470px;
   top: 0;
   left: 0;
-  background-color: #ffffff;
+  background-color: #4f9e91;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
+  border-radius: 0 0 15px 0;
 }
 .sidepanel a {
   padding: 8px 8px 8px 32px;
@@ -35,6 +37,38 @@
   top: 0;
   right: 25px;
   font-size: 20 px;
+  background-color:#4f9e91;
+  color:rgb(8, 14, 11);
+  border:none;
+  padding: 10px 15px;
+  font-size: 1.1rem;
+  border-radius: 0 0 5px 5px;
+  transition: 0.3s;
+}
+
+.sidepanel .closebtn:hover {
+    background-color: #9a060685;
+    border-color: #f70000;
+    border-radius: 0 0 5px 5px;
+}
+
+.btn-pers {
+  background-color:#4f9e91;
+  color:rgb(8, 14, 11);
+  border:none;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+}
+
+.btn-pers:hover {
+    background-color: #015a49;
+}
+
+.btn-openpanel {
+  background-color:#4f9e9100;
+  color:rgb(8, 14, 11);
+  border:none;
+  font-size: 1.0rem;
 }
 </style>
 <script>
@@ -54,15 +88,26 @@ function closeNav() {
                 <span class="navbar-toggler-icon"></span>
             </button>
             {% if request.path == "/" %}
-                <button class="openbtn" onclick="openNav()">☰ Categorías</button>  
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <button class="btn btn-openpanel" onclick="openNav()">☰ Categorías</button>
+                </ul>
+                  
 
 
                 <div id="mySidepanel" class="sidepanel">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a>
                 {% for cat in categorias %}
-                    <a href="/?categoria={{ cat.id }}">{{ cat.titulo }}</a>
+                    <a href="/?categoria={{ cat.id }}">
+                        <button class="btn btn-pers">
+                            {{ cat.titulo }}
+                        </button>
+                    </a>
                 {% endfor %}
-                <a href="/">(todas)</a>
+                <a href="/">
+                    <button class="btn btn-pers">
+                        (todas)
+                    </button>
+                </a>
                 </div>
             {% endif %}
             
@@ -72,10 +117,10 @@ function closeNav() {
                         {% if request.path != "/publicar/" %}
                             {% if request.path != "/perfil/" %}
                                 <li class="nav-item">
-                                    <a href="/logout" class="nav-link active">cerrar sesion</a>
+                                    <a href="/logout" class="btn btn-openpanel">cerrar sesion</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/publicar" class="nav-link active">publicar</a>
+                                    <a href="/publicar" class="btn btn-openpanel">publicar</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="/perfil" class="nav-link active d-flex align-items-center">
