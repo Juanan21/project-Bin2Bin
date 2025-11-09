@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import user_img
+from .models import user_img, Descripcion
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
@@ -27,3 +27,13 @@ class imgperfil(ModelForm):
 
 class EmailForm(forms.Form):
     mensaje = forms.CharField(label='Mensaje', widget=forms.Textarea)
+
+class DescripcionForm(ModelForm):
+    class Meta:
+        model = Descripcion
+        fields = ['descripcion']
+
+class ModDescripcion(forms.ModelForm):
+    class Meta:
+        model = Descripcion
+        fields = ['descripcion']

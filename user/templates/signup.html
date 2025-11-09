@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bin2Bin</title>
     <link rel="icon" href="{% static '/img/Bin2Bin.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
    
@@ -23,9 +24,11 @@
                     {% csrf_token %}
                     <div class="form-row">
                         
-                        <div class="mb-3">
-                            <label for="formFile" class="form-label offset-md-3 my-3 ">Seleccione una foto de perfil:</label>
+                        <div class="text-center my-4">
                             <input class="form-control" type="file" accept="image/*" id="formFile" name="imagen" style="display: none">
+                            <label for="formFile" class="btn btn-outline-primary">
+                                <i class="bi bi-upload"></i> Subir imagen
+                            </label> 
                         </div>
                         
                         <div class="position-relative">
@@ -76,6 +79,16 @@
                                 placeholder="***********" required>
                             <div class="invalid-tooltip">
                                 Por favor confirme su contraseña.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form2-row">
+                        <div class="position-relative">
+                            <label for="descripcion" class="mt-4">Descripción:</label>
+                            <input type="text" class="form-control mt-1" name="descripcion" id="descripcion"
+                                placeholder="Una descripcion tuya (opcional)">
+                            <div class="invalid-tooltip">
+                                Por favor ingrese una contraseña válida.
                             </div>
                         </div>
                     </div>

@@ -4,8 +4,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
-from .forms import first_lastn, modperfil, imgperfil, EmailForm
-from .models import user_img
+from .forms import first_lastn, modperfil, imgperfil, EmailForm, DescripcionForm, ModDescripcion
+from .models import user_img, Descripcion
 from publi.models import publi,categoria
 from django.core.mail import send_mail, EmailMessage
 # Create your views here.
@@ -36,39 +36,51 @@ def signup(request):
             'titulo':titulo,
             'cuerpo':cuerpo,
             'form':first_lastn,
-            'form1':imgperfil
+            'form1':imgperfil,
+            'form2':DescripcionForm
         })
     else:
         if request.POST['password1'] == request.POST['password2']:
             try:
                 usuario = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'], first_name=request.POST['nombre'], last_name=request.POST['apellido'], email=request.POST['email'])
                 imagen_form = imgperfil(request.POST, request.FILES)
+                descripcion_form = DescripcionForm(request.POST)
+                print(descripcion_form)
                 usuario.save()
                 login(request, usuario)
                 if imagen_form.is_valid():
                     imagen = imagen_form.save(commit=False)
                     imagen.usuario = usuario 
                     imagen.save()
-                return redirect('perfil')
+                    if descripcion_form.is_valid():
+                        print(hola)
+                        descripcion = descripcion_form.save(commit=False)
+                        descripcion.usuario = usuario
+                        descripcion.save()
+                        return redirect('perfil')
+                    return redirect('perfil')
             except:
                 titulo = 'Nombre de usuario ya existente. Intente con otro'
             return render(request, 'signup.html', {
                 'titulo':titulo,
                 'form':first_lastn,
-                'form1':imgperfil
+                'form1':imgperfil,
+                'form2':DescripcionForm
             })
         else:
             titulo = 'Las contraseñas no coinciden'
             return render(request, 'signup.html', {
                 'titulo':titulo,
                 'form':first_lastn,
-                'form1':imgperfil
+                'form1':imgperfil,
+                'form2':DescripcionForm
             })
 
 def perfil(request):
     if request.method == 'POST':
         img_obj = get_object_or_404(user_img, usuario=request.user.id)
         imagen = imgperfil(request.POST, request.FILES, instance=img_obj)
+        descripcion = Descripcion.objects.get(usuario=request.user.id)
         if imagen.is_valid():
             imagen.save()
         if "update_email" in request.POST:
@@ -76,27 +88,36 @@ def perfil(request):
             if mod.is_valid():
                 mod.save()
             else:
-                return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'imagen':imagen, 'error':'email invalido'})
+                return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'form2':ModDescripcion, 'imagen':imagen, 'error':'email invalido'})
+        if "update_descripcion" in request.POST:
+            print('hola')
+            mod = ModDescripcion(request.POST, instance=descripcion)
+            if mod.is_valid():
+                mod.save()
+            else:
+                return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'form2':ModDescripcion, 'imagen':imagen, 'error':'email invalido'})    
         return redirect('perfil')
     else:
         try:
-            img_obj = get_object_or_404(user_img, usuario=request.user.id)
+            img_obj = get_object_or_404(user_img, usuario=request.user)
+            descrip = Descripcion.objects.get(usuario=request.user.id)
             try:
+                mod = ModDescripcion(instance=descrip)
                 publicaciones = publi.objects.filter(usuario=request.user.id).order_by("-creacion")
-                return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'imagen':img_obj, 'publicaciones':publicaciones})
+                return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'form2':mod, 'imagen':img_obj, 'publicaciones':publicaciones, 'descrip':descrip})
             except:
-                print(img_obj)
-                return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'imagen':img_obj})
+                return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'form2':mod, 'imagen':img_obj, 'descrip':descrip})
         except:
-            return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil})
+            return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'form2':mod})
         
 def verperfil(request, username):
     if request.method == 'GET':
         interesado = get_object_or_404(User, username=username)
         img_obj = get_object_or_404(user_img, usuario=request.user.id)
         img_inte = get_object_or_404(user_img, usuario=interesado.id)
+        descrip_obj = get_object_or_404(Descripcion, usuario=interesado.id)
         publicaciones = publi.objects.filter(usuario=interesado).order_by("-creacion")
-        return render(request,'verperfil.html', {'imagen':img_obj, 'publicaciones':publicaciones, 'img_inte':img_inte, 'interesado':interesado, 'form':EmailForm})
+        return render(request,'verperfil.html', {'imagen':img_obj, 'publicaciones':publicaciones, 'img_inte':img_inte, 'descrip_obj':descrip_obj, 'interesado':interesado, 'form':EmailForm})
     else:
         form = EmailForm(request.POST)
         if form.is_valid():

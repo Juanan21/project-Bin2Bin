@@ -8,3 +8,10 @@ class user_img(models.Model):
 
     def __str__(self):
         return str(self.usuario)
+    
+class Descripcion(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    descripcion = models.TextField(default='Descripción', blank=True)
+
+    def __str__(self):
+        return str(self.usuario)
