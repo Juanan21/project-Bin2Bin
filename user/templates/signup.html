@@ -10,29 +10,48 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
    
-
+    <link rel="stylesheet" href="{% static 'signup.css' %}">
     </head>
 
 <body>
-    <main class="container card card-body mt-10">
+    <main class="container card card-body mb-5 mt-5 form-container ">
         <div class="row">
-            <div class="col-md-4 offset-md-4 mt-10">
-                <h1 class="text-center">Bienvenido a Bin2bin</h1>
+            <div>
+                <h2 class="text-center">Bienvenido a </h2>
+                <h1 class="text-center">Bin2bin</h1>
                 <h5 class="text-center">Por favor crea tu cuenta</h5>
 
                 <form action="/signup/" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
                     {% csrf_token %}
                     <div class="form-row">
                         
-                        <div class="text-center my-4">
+                        <div class="text-center mt-4">
                             <input class="form-control" type="file" accept="image/*" id="formFile" name="imagen" style="display: none">
-                            <label for="formFile" class="btn btn-outline-primary">
+                            <label for="formFile" class="btn btn-outline-success">
                                 <i class="bi bi-upload"></i> Subir imagen
                             </label> 
+                            <div id="fileNameText" class="form-text mt-2 text-secondary">
+                                No se ha subido ninguna imagen.
+                             </div>
                         </div>
-                        
+                        <script>
+                            const fileInput = document.getElementById('formFile');
+                            const fileNameText = document.getElementById('fileNameText');
+
+                            fileInput.addEventListener('change', () => {
+                            if (fileInput.files.length > 0) {
+                                fileNameText.textContent = `Imagen subida: ${fileInput.files[0].name}`;
+                                fileNameText.classList.remove('text-secondary');
+                                fileNameText.classList.add('text-success');
+                            } else {
+                                fileNameText.textContent = 'No se ha subido ninguna imagen.';
+                                fileNameText.classList.remove('text-success');
+                                fileNameText.classList.add('text-secondary');
+                            }
+                            });
+                        </script>
                         <div class="position-relative">
-                            <label for="username" class="mt-1">Nombre de usuario</label>
+                            <label for="username" class="mt-4">Nombre de usuario</label>
                             <input type="text" class="form-control mt-1" name="username" id="username"
                                 placeholder="Escribe tu nombre de ususario" required>
                             <div class="valid-tooltip">
@@ -85,14 +104,13 @@
                     <div class="form2-row">
                         <div class="position-relative">
                             <label for="descripcion" class="mt-4">Descripción:</label>
-                            <input type="text" class="form-control mt-1" name="descripcion" id="descripcion"
+                            <input type="text" class="form-control mt-1 mb-2" name="descripcion" id="descripcion"
                                 placeholder="Una descripcion tuya (opcional)">
-                            <div class="invalid-tooltip">
-                                Por favor ingrese una contraseña válida.
-                            </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary offset-md-4 my-3" type="submit">Crear cuenta</button>
+                    <div class="text-center mt-4">
+                        <button class="btn btn-success rounded-pill btn-md px-5" type="submit">Crear cuenta</button>
+                    </div>
                 </form>
             </div>
         </div>
