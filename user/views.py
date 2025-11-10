@@ -107,7 +107,12 @@ def perfil(request):
             try:
                 mod = ModDescripcion(instance=descrip)
                 publicaciones = publi.objects.filter(usuario=request.user.id).order_by("-creacion")
-                return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'form2':mod, 'imagen':img_obj, 'publicaciones':publicaciones, 'descrip':descrip})
+                publis_interesado = publi.objects.filter(interesado__interesado_id=request.user.id).distinct()
+
+                return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'form2':mod, 'imagen':img_obj,
+                                                       'publicaciones':publicaciones, 
+                                                       'descrip':descrip,
+                                                       'publis_interesado':publis_interesado})
             except:
                 return render(request,'perfil.html', {'form':modperfil, 'form1':imgperfil, 'form2':mod, 'imagen':img_obj, 'descrip':descrip})
         except:

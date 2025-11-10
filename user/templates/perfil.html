@@ -88,6 +88,27 @@
                 {% endfor %}
             </div>
         </div>
+
+        <h2> Publicaciones que me interesan </h2>
+        <div class="posts">
+            <div class="post">
+                {% for pub in publis_interesado %}
+                    <a href="{% url 'post' pub.id %}">
+                        {% if pub.imagen.url != blank %}
+                            <img src="{{pub.imagen.url}}"/>                
+                    {% else %}
+                            <a>no hay imagenes</a>
+                    {% endif %}
+                    </a>
+                {% empty %}
+                    {% if request.path != "/perfil/" %}
+                        <li>No se han encontrado publicaciones.</li>
+                    {% else %}
+                        <li>No tienes publicaciones en las que estas interesado.</li>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
 
