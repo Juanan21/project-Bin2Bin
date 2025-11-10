@@ -16,10 +16,13 @@ def hola(request):
         return redirect('hola')
     else:
         categorias = categoria.objects.all().order_by("titulo")
+        filtros = {}
         if request.GET.get("categoria"):
-            publicaciones = publi.objects.filter(categorias__id=request.GET["categoria"]).order_by("-creacion")
-        elif request.GET.get("search"):
-            publicaciones = publi.objects.filter(titulo__contains=request.GET["search"]).order_by("-creacion")
+            filtros['categorias__id'] = request.GET.get("categoria")
+        if request.GET.get("search"):
+            filtros['titulo__contains'] = request.GET.get("search")
+        if filtros:
+            publicaciones = publi.objects.filter(**filtros).order_by("-creacion")            
         else:
             publicaciones = publi.objects.all().order_by("-creacion")            
         try:
