@@ -9,6 +9,22 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 
+<script>
+function activateTab(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+
 <!--layout general-->
 <div class="main">
     <div class="box pic">
@@ -68,47 +84,56 @@
 
 <!-- publi stuff -->
     <div class="box publis">
-        <h2> Mis publicaciones </h2>
-        <div class="posts">
-            <div class="post">
-                {% for pub in publicaciones %}
-                    <a href="{% url 'post' pub.id %}">
-                        {% if pub.imagen.url != blank %}
-                            <img src="{{pub.imagen.url}}"/>                
-                    {% else %}
-                            <a>no hay imagenes</a>
-                    {% endif %}
-                    </a>
-                {% empty %}
-                    {% if request.path != "/perfil/" %}
-                        <li>No se han encontrado publicaciones.</li>
-                    {% else %}
-                        <li>No has publicado nada todavía.</li>
-                    {% endif %}
-                {% endfor %}
+        <div class="tab">
+            <button class="tablinks active" onclick="activateTab(event, 'mis_publicaciones')">Mis publicaciones</button>
+            <button class="tablinks" onclick="activateTab(event, 'publicaciones_interesan')">Publicaciones que me interesan</button>
+        </div>
+
+        <div id="mis_publicaciones" class="posts tabcontent "> 
+            <div class="posts">
+                <div class="post">
+                    {% for pub in publicaciones %}
+                        <a href="{% url 'post' pub.id %}">
+                            {% if pub.imagen.url != blank %}
+                                <img src="{{pub.imagen.url}}"/>                
+                        {% else %}
+                                <a>no hay imagenes</a>
+                        {% endif %}
+                        </a>
+                    {% empty %}
+                        {% if request.path != "/perfil/" %}
+                            <li>No se han encontrado publicaciones.</li>
+                        {% else %}
+                            <li>No has publicado nada todavía.</li>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
 
-        <h2> Publicaciones que me interesan </h2>
-        <div class="posts">
-            <div class="post">
-                {% for pub in publis_interesado %}
-                    <a href="{% url 'post' pub.id %}">
-                        {% if pub.imagen.url != blank %}
-                            <img src="{{pub.imagen.url}}"/>                
-                    {% else %}
-                            <a>no hay imagenes</a>
-                    {% endif %}
-                    </a>
-                {% empty %}
-                    {% if request.path != "/perfil/" %}
-                        <li>No se han encontrado publicaciones.</li>
-                    {% else %}
-                        <li>No tienes publicaciones en las que estas interesado.</li>
-                    {% endif %}
-                {% endfor %}
+        <div id="publicaciones_interesan" class="posts tabcontent tabcontent_inactive">
+            <div class="posts">
+                <div class="post">
+                    {% for pub in publis_interesado %}
+                        <a href="{% url 'post' pub.id %}">
+                            {% if pub.imagen.url != blank %}
+                                <img src="{{pub.imagen.url}}"/>                
+                        {% else %}
+                                <a>no hay imagenes</a>
+                        {% endif %}
+                        </a>
+                    {% empty %}
+                        {% if request.path != "/perfil/" %}
+                            <li>No se han encontrado publicaciones.</li>
+                        {% else %}
+                            <li>No tienes publicaciones en las que estas interesado.</li>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
+
+
     </div>
 </div>
 

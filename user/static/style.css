@@ -142,12 +142,13 @@ h2 {
 .publis .posts {
   flex: 1;
   gap: 10px;
-  overflow-y: auto;
+  overflow: hidden;
   padding: 2px;
 }
 
 .publis .post {
   padding-left: 15px;
+  overflow: hidden;
   width: fit-content;
 }
 
@@ -162,4 +163,37 @@ h2 {
 
 .publis .posts img:hover {
   transform: scale(1.1);
+}
+
+.tabcontent {
+  padding: 6px 12px;
+  border-top: none;
+}
+
+.tabcontent_inactive {
+  display: none;
+}
+
+.tab_selectors {
+  display: flex;
+  color:rgba(193, 224, 221, 0.619);
+}
+
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+.tab button.active {
+  background-color: #015b4c74;
+}
+
+.tab button:hover {
+  background-color: #00ffd574;
 }
