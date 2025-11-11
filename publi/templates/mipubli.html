@@ -1,72 +1,84 @@
 {% extends 'hola.html' %}
-
+{$ load static $}
+<!-- =================  ACÁ DEBO TRABAJAR GENTE   =====================-->
 {% block content %}
-    <h1>{{ post.titulo }}</h1>
-    
-    {% if request.user.id != post.usuario.id %}
-    <a href="{% url 'ver_perfil' post.usuario %}">
-        <p>- {{ post.usuario }}</p>
-    </a>
-    {% else %}
-    <p>- {{ post.usuario }}</p>
-    {% endif %}
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'post.css' %}">
+</head>
 
-    {% if post.imagen.url != blank %}
-    <img src="{{post.imagen.url}}" alt="{{post.titulo}}" />
-    {% endif %}
-    {% if post.imagen2.url != blank %}
-    <img src="{{post.imagen2.url}}" alt="{{post.titulo}}" />
-    {% endif %}
-    {% if post.imagen3.url != blank %}
-    <img src="{{post.imagen3.url}}" alt="{{post.titulo}}" />
-    {% endif %}
+    <div class="post-gallery">
+    <!-- la imagen grande -->
+        {% if post.imagen.url != blank %}
+        <div class="image big">
+            <img src="{{post.imagen.url}}" alt="{{post.titulo}}" class="big-img"/>
 
-
-    <ul>
-        <p>{{ post.descripcion }}</p>
-    </ul>
-
-    {% if request.user.id == post.usuario.id %}
-
-        <h2>Interesados:</h2>
-        {% for inte in interesados %}
-        <ul>
-            <a href="{% url 'ver_perfil' inte.interesado %}">
-                <li>
-                    <strong>{{ inte.interesado }}</strong>
-                </li>
-            </a>
-        </ul>
-        {% empty %}
-            <ul><li>No hay interesados</li></ul>
-        {% endfor %}
-
-        <form action="" method="POST">
-            {% csrf_token %}
-            <ul>
-                <button>
-                    Eliminar
-                </button>
-            </ul> 
-        </form>
-    {% else %}
-        <form action="" method="POST">
-            {% if hay_interesado %}
-                {% csrf_token %}
-                <ul>
-                    <button>
-                        No me interesa
-                    </button>
-                </ul>
-            {% else %}
-                {% csrf_token %}
-                <ul>
-                    <button>
-                        Me interesa
-                    </button>
-                </ul>
+        </div>
+    <!-- galería pequeña :3 -->
+        <div class="image small">
+        <li>
+            <img src="{{post.imagen.url}}" alt="{{post.titulo}}" class="small-img"/>
             {% endif %}
-        </form>
+        </li>
+        <li>{% if post.imagen2.url != blank %}
+            <img src="{{post.imagen2.url}}" alt="{{post.titulo}}" class="small-img"/>
+            {% endif %}
+        </li>
+        <li>{% if post.imagen3.url != blank %}
+                <img src="{{post.imagen3.url}}" alt="{{post.titulo}}" class="small-img"/>
+            {% endif %}
+        <script src="/static/post.js"></script>
+        </li>
+        </div>
+        <!-- Contenido extra-->
+        <div class="contents">
+        <h1>{{ post.titulo }}</h1>
+        <ul>
+            <p>{{ post.descripcion }}</p>
+        </ul>
+        {% if request.user.id == post.usuario.id %}
 
-    {% endif %}
+            <h2>Interesados:</h2>
+            {% for inte in interesados %}
+            <ul>
+                <a href="{% url 'ver_perfil' inte.interesado %}">
+                    <li>
+                        <strong>{{ inte.interesado }}</strong>
+                    </li>
+                </a>
+            </ul>
+            {% empty %}
+                <ul><li>No hay interesados</li></ul>
+            {% endfor %}
+
+            <form action="" method="POST">
+                {% csrf_token %}
+                <ul>
+                    <button>
+                        Eliminar
+                    </button>
+                </ul> 
+            </form>
+        {% else %}
+            <form action="" method="POST">
+                {% if hay_interesado %}
+                    {% csrf_token %}
+                    <ul>
+                        <button>
+                            No me interesa
+                        </button>
+                    </ul>
+                {% else %}
+                    {% csrf_token %}
+                    <ul>
+                        <button>
+                            Me interesa
+                        </button>
+                    </ul>
+                {% endif %}
+            </form>
+        {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

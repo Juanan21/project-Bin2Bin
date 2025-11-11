@@ -10,67 +10,6 @@
     <link rel="icon" href="{% static '/img/Bin2Bin.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'home.css' %}">
 </head>
-<style>
-.sidepanel  {
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  height: 470px;
-  top: 0;
-  left: 0;
-  background-color: #4f9e91;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-  border-radius: 0 0 15px 0;
-}
-.sidepanel a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 18px;
-  color: #000000;
-  display: block;
-  transition: 2.9s;
-}
-.sidepanel .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 20 px;
-  background-color:#4f9e91;
-  color:rgb(8, 14, 11);
-  border:none;
-  padding: 10px 15px;
-  font-size: 1.1rem;
-  border-radius: 0 0 5px 5px;
-  transition: 0.3s;
-}
-
-.sidepanel .closebtn:hover {
-    background-color: #9a060685;
-    border-color: #f70000;
-    border-radius: 0 0 5px 5px;
-}
-
-.btn-pers {
-  background-color:#4f9e91;
-  color:rgb(8, 14, 11);
-  border:none;
-  padding: 10px 20px;
-  font-size: 1.1rem;
-}
-
-.btn-pers:hover {
-    background-color: #015a49;
-}
-
-.btn-openpanel {
-  background-color:#4f9e9100;
-  color:rgb(8, 14, 11);
-  border:none;
-  font-size: 1.0rem;
-}
-</style>
 <script>
 function openNav() {
   document.getElementById("mySidepanel").style.width = "250px";
@@ -211,7 +150,7 @@ function closeNav() {
                     {% endif %}
                 <div class="details">
                     <a href="{% url 'post' pub.id %}">
-                    <strong>{{ pub.titulo }}</strong> - <strong>{{ pub.descripcion}}</strong> 
+                    <strong>{{ pub.titulo }}</strong> - <!--<strong>{{ pub.descripcion}}</strong> -->
                     <p>{{ pub.creacion|date:"d M Y H:i" }}
                     - {{ pub.usuario }}</p>
                     </a>
