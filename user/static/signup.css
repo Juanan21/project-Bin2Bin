@@ -1,4 +1,6 @@
-
+body{
+  background-color: rgba(63, 160, 84, 0.527);
+}
 .form-container{
     max-width: 450px;  
   margin: 0 auto;    
