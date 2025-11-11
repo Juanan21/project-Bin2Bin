@@ -104,8 +104,8 @@ def perfil(request):
         try:
             img_obj = get_object_or_404(user_img, usuario=request.user)
             descrip = Descripcion.objects.get(usuario=request.user.id)
+            mod = ModDescripcion(instance=descrip)
             try:
-                mod = ModDescripcion(instance=descrip)
                 publicaciones = publi.objects.filter(usuario=request.user.id).order_by("-creacion")
                 publis_interesado = publi.objects.filter(interesado__interesado_id=request.user.id).distinct()
 

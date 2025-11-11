@@ -2,6 +2,14 @@
 
 {% block content %}
     <h1>{{ post.titulo }}</h1>
+    
+    {% if request.user.id != post.usuario.id %}
+    <a href="{% url 'ver_perfil' post.usuario %}">
+        <p>- {{ post.usuario }}</p>
+    </a>
+    {% else %}
+    <p>- {{ post.usuario }}</p>
+    {% endif %}
 
     {% if post.imagen.url != blank %}
     <img src="{{post.imagen.url}}" alt="{{post.titulo}}" />

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class user_img(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    imagen = models.ImageField(upload_to='imagenes/')
+    imagen = models.ImageField(upload_to='imagenes/', default='imagenes/Bin2bin.png',blank=True)
     creado = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
