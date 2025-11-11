@@ -7,6 +7,7 @@
     {% load static %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <script>
@@ -84,56 +85,65 @@ function activateTab(evt, tabName) {
 
 <!-- publi stuff -->
     <div class="box publis">
-        <div class="tab">
-            <button class="tablinks active" onclick="activateTab(event, 'mis_publicaciones')">Mis publicaciones</button>
-            <button class="tablinks" onclick="activateTab(event, 'publicaciones_interesan')">Publicaciones que me interesan</button>
-        </div>
+        <div class="tab-container">
+            <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="mis-tab" data-bs-toggle="tab"
+                            data-bs-target="#mis_publicaciones" type="button" role="tab"
+                            aria-controls="mis_publicaciones" aria-selected="true">
+                        Mis publicaciones
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="interes-tab" data-bs-toggle="tab"
+                            data-bs-target="#publicaciones_interesan" type="button" role="tab"
+                            aria-controls="publicaciones_interesan" aria-selected="false">
+                        Publicaciones que me interesan
+                    </button>
+                </li>
+            </ul>
+        
+            <!-- Contenedor de las publicaciones -->
+            <div class="tab-content" id="myTabContent">
+                <!-- Mis publicaciones -->
+                <div class="tab-pane fade show active" id="mis_publicaciones" role="tabpanel" aria-labelledby="mis-tab">
+                    <div class="posts d-flex flex-wrap justify-content-center">
+                        <div class="post">
+                            {% for pub in publicaciones %}
+                                <a href="{% url 'post' pub.id %}">
+                                    {% if pub.imagen.url != blank %}
+                                        <img src="{{pub.imagen.url}}" alt="Publicación">
+                                    {% else %}
+                                        <p>No hay imágenes</p>
+                                    {% endif %}
+                                </a>
+                            {% empty %}
+                                <p>No has publicado nada todavía.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
 
-        <div id="mis_publicaciones" class="posts tabcontent "> 
-            <div class="posts">
-                <div class="post">
-                    {% for pub in publicaciones %}
-                        <a href="{% url 'post' pub.id %}">
-                            {% if pub.imagen.url != blank %}
-                                <img src="{{pub.imagen.url}}"/>                
-                        {% else %}
-                                <a>no hay imagenes</a>
-                        {% endif %}
-                        </a>
-                    {% empty %}
-                        {% if request.path != "/perfil/" %}
-                            <li>No se han encontrado publicaciones.</li>
-                        {% else %}
-                            <li>No has publicado nada todavía.</li>
-                        {% endif %}
-                    {% endfor %}
+                <!-- Publicaciones que me interesan -->
+                <div class="tab-pane fade" id="publicaciones_interesan" role="tabpanel" aria-labelledby="interes-tab">
+                    <div class="posts d-flex flex-wrap justify-content-center">
+                        <div class="post">
+                            {% for pub in publis_interesado %}
+                                <a href="{% url 'post' pub.id %}">
+                                    {% if pub.imagen.url != blank %}
+                                        <img src="{{pub.imagen.url}}" alt="Publicación interesada">
+                                    {% else %}
+                                        <p>No hay imágenes</p>
+                                    {% endif %}
+                                </a>
+                            {% empty %}
+                                <p>No tienes publicaciones que te interesen.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div id="publicaciones_interesan" class="posts tabcontent tabcontent_inactive">
-            <div class="posts">
-                <div class="post">
-                    {% for pub in publis_interesado %}
-                        <a href="{% url 'post' pub.id %}">
-                            {% if pub.imagen.url != blank %}
-                                <img src="{{pub.imagen.url}}"/>                
-                        {% else %}
-                                <a>no hay imagenes</a>
-                        {% endif %}
-                        </a>
-                    {% empty %}
-                        {% if request.path != "/perfil/" %}
-                            <li>No se han encontrado publicaciones.</li>
-                        {% else %}
-                            <li>No tienes publicaciones en las que estas interesado.</li>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-
-
     </div>
 </div>
 

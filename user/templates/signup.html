@@ -24,9 +24,8 @@
                 <form action="/signup/" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
                     {% csrf_token %}
                     {% if request.POST %}
-                        {{titulo}}
+                        {{ titulo }}
                     {% endif %}
-                    
                     <div class="form-row">
                         
                         <div class="text-center mt-4">

@@ -154,8 +154,8 @@ h2 {
 
 .publis .posts img {
   padding: 10px;
-  height: 200px;
-  width: 190px;
+  height: 180px;
+  width: 170px;
   border-radius: 15%;
   object-fit: cover;
   transition: transform 0.2s ease;
@@ -196,4 +196,30 @@ h2 {
 
 .tab button:hover {
   background-color: #00ffd574;
+}
+
+/* Fijar los botones de pestaña arriba del panel */
+.publis .tab-container {
+  position: relative;
+  height: 100%;
+}
+
+.publis .nav-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--secondary-color);
+  padding-top: 5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Alinear mejor las imágenes tipo galería */
+.publis .posts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  padding: 15px;
+  overflow-y: auto;
+  max-height: 85%;
 }
