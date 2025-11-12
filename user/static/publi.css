@@ -1,0 +1,5 @@
+select.form-select:valid {
+  background-color: #d1e7dd; /* verde suave tipo Bootstrap success */
+  color: #0f5132; /* texto verde oscuro */
+  border-color: #198754; /* borde verde */
+}
