@@ -1,6 +1,112 @@
 {% extends 'hola.html' %}
+{% load static %}
+
 
 {% block content %}
+<div class="container mt-4">
+    <form action="/publicar/" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <label for="imagen" class="form-label">Imágenes del producto</label>
+                <div id="preview-container" class="d-flex justify-content-center gap-2 flex-wrap">
+                    
+                    <img id="default-image" src="/static/img/noimg.jpg" alt="Imagen predeterminada" class="img-thumbnail" style="width:300px; height:300px; object-fit:cover;">
+                </div>
+    
+                <input class="form-control mt-3" type="file" id="imagen" name="imagen" accept="image/*" style="display: none" multiple required>
+                <label for="imagen" class="btn btn-outline-success mt-4">
+                    <i class="bi bi-upload"></i> Subir imagenes
+                </label> 
+                <div class="form-text">
+                    Puedes seleccionar hasta 3 imágenes. (Obligatorio al menos una)
+                </div>
+                <div id="mensaje" class="mt-2"></div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Añadir título</label>
+                    <input type="text" class="form-control" id="nombre" name="titulo">
+                </div>
+                <div class="mb-3">
+                    <label for="descripcion" class="form-label">Detalles del producto</label>
+                    <textarea class="form-control" id="descripcion" name="descripcion" rows="4"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="tags" class="form-label">Tags</label>
+                    <input type="text" class="form-control" id="tags" name="categorias" placeholder="Ej: tecnología, arte...">
+                </div>
+                <button type="submit" class="btn btn-success w-50">Crear publicación</button>
+            </div>
+
+        </div>
+    </form>
+<script>
+  const inputImagen = document.getElementById('imagen');
+  const previewContainer = document.getElementById('preview-container');
+  const mensaje = document.getElementById('mensaje');
+  const defaultImage = document.getElementById('default-image');
+
+  function mostrarMensaje(texto, tipo) {
+    mensaje.innerHTML = `
+      <div class="alert alert-${tipo} alert-dismissible fade show" role="alert">
+        ${texto}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    `;
+  }
+
+  inputImagen.addEventListener('change', function(event) {
+    const files = Array.from(event.target.files);
+
+    // Si se eligen más de 3 imágenes
+    if (files.length > 3) {
+      mostrarMensaje("Solo puedes seleccionar hasta 3 imágenes.", "warning");
+      inputImagen.value = ""; // borra selección
+      return;
+    }
+
+    // Si se eligen 0 imágenes
+    if (files.length === 0) {
+      mostrarMensaje("Debes seleccionar al menos una imagen.", "danger");
+      return;
+    }
+
+    // Limpia mensaje previo y previsualización
+    mensaje.innerHTML = "";
+    previewContainer.innerHTML = "";
+
+    // Muestra las imágenes seleccionadas
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.className = "img-thumbnail";
+        img.style.width = "250px";
+        img.style.height = "250px";
+        img.style.objectFit = "cover";
+        previewContainer.appendChild(img);
+      }
+      reader.readAsDataURL(file);
+    });
+  });
+
+  // Evitar envío sin imágenes
+  const form = document.getElementById('form-producto');
+  form.addEventListener('submit', function(e) {
+    if (inputImagen.files.length === 0) {
+      e.preventDefault();
+      mostrarMensaje("Debes seleccionar al menos una imagen antes de enviar.", "danger");
+    }
+  });
+</script>
+</div>
+
+{% endblock %}
+
+<!--
+
     <nav>
     <h1>Crea tu publicacion</h1>
     <ul>
@@ -13,4 +119,3 @@
             </button>
         </form>
     </ul>
-{% endblock %}
