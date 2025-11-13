@@ -8,6 +8,7 @@
 
 * {
     color: rgba(0, 0, 0, 0.444);
+
 }
 .post-gallery {
     display: grid;
@@ -48,15 +49,23 @@
 .small img:hover {
     transform: scale(0.95);
     border-style: groove;
-    border-color: var(--bg-color);
+    border-color: var(--primary-color);
     box-shadow: var(--box-shadow);
 }
 
 .contents {
     grid-column: 3/span 4;
     grid-row: 2;
+    box-shadow: var(--box-shadow);
     border: 2px solid var(--grey-color);
     border-radius: 6%;
     border-color: rgba(128, 128, 128, 0.158);
     padding: 17px;
+}
+
+.rounded-pill {
+    margin: 5px;
+    color: var(--secondary-color);
+    border: none;
+    background-color: var(--primary-color);
 }

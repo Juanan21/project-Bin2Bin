@@ -27,7 +27,7 @@
         <li>{% if post.imagen3.url != blank %}
                 <img src="{{post.imagen3.url}}" alt="{{post.titulo}}" class="small-img"/>
             {% endif %}
-        <script src="/static/post.js"></script>
+        <script src="/static/js/post.js"></script>
         </li>
         </div>
         <!-- Contenido extra-->
@@ -54,7 +54,7 @@
             <form action="" method="POST">
                 {% csrf_token %}
                 <ul>
-                    <button>
+                    <button class="rounded-pill">
                         Eliminar
                     </button>
                 </ul> 
@@ -64,14 +64,14 @@
                 {% if hay_interesado %}
                     {% csrf_token %}
                     <ul>
-                        <button>
+                        <button class="rounded-pill">
                             No me interesa
                         </button>
                     </ul>
                 {% else %}
                     {% csrf_token %}
                     <ul>
-                        <button>
+                        <button class="rounded-pill">
                             Me interesa
                         </button>
                     </ul>
