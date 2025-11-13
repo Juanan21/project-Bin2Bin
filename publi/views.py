@@ -18,12 +18,24 @@ def publis(request):
         except:
             return render(request, 'publi.html', {'form': publiform})
     else:
+        nueva = publi.objects.create(
+            titulo=request.POST.get("titulo"),
+            descripcion=request.POST.get("descripcion"),
+            usuario=request.user,
+            imagen=request.FILES.get("imagen"),
+            imagen2=request.FILES.get("imagen2"),
+            imagen3=request.FILES.get("imagen3"),
+        )
+        categoria_id = request.POST.get("categorias_id")
+        if categoria_id:
+            nueva.categorias.set([categoria_id])
+        """
         t = publiform(request.POST, request.FILES)
         nueva_publi = t.save(commit=False)
         nueva_publi.usuario = request.user
         nueva_publi.save()
         t.save_m2m()
-
+        """
         return redirect('perfil')
     
 @login_required
