@@ -22,6 +22,9 @@ function iniciarAnimaciones() {
         reset: false,
         interval: 350,
     });
+
+    //para todas las imagenes //
+
     //clase  "image small"
         ScrollReveal().reveal('.small li', {
         origin: 'bottom',
