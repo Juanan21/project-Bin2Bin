@@ -5,6 +5,23 @@
 <head>
     {% load static %}
     <link rel="stylesheet" href="{% static 'post.css' %}">
+    <style>
+        titu { 
+        display: inline-block;
+        font-size: 2em;
+        margin-top: 0.1em;
+        margin-bottom: 0.5em;
+        margin-left: 0;
+        margin-right: 0;
+        font-weight: 600;
+        }
+        a {         color: rgb(12, 56, 12);   }
+        a:link {    text-decoration: none;}
+        a:visited { text-decoration: none;}
+        a:hover {   text-decoration: underline; }
+        a:active {  text-decoration: underline; }
+    </style>
+    
 </head>
 
     <div class="post-gallery">
@@ -32,10 +49,21 @@
         </div>
         <!-- Contenido extra-->
         <div class="contents">
-        <h1>{{ post.titulo }}</h1>
-        <ul>
+        <titu>{{ post.titulo }}</titu>
+  
+            {% if request.user.id != post.usuario.id %}
+            <a href="{% url 'ver_perfil' post.usuario %}">
+            - {{ post.usuario }}
+            </a>
+                , {{ post.creacion|date:"d M Y H:i" }}
+            {% else %}
+                {{ post.usuario }}, {{ post.creacion|date:"d M Y H:i" }}
+            {% endif %}
             <p>{{ post.descripcion }}</p>
-        </ul>
+
+        
+
+
         {% if request.user.id == post.usuario.id %}
 
             <h2>Interesados:</h2>
@@ -53,28 +81,22 @@
 
             <form action="" method="POST">
                 {% csrf_token %}
-                <ul>
-                    <button class="rounded-pill">
-                        Eliminar
-                    </button>
-                </ul> 
+                <button class="rounded-pill">
+                    Eliminar
+                </button>
             </form>
         {% else %}
             <form action="" method="POST">
                 {% if hay_interesado %}
                     {% csrf_token %}
-                    <ul>
-                        <button class="rounded-pill">
-                            No me interesa
-                        </button>
-                    </ul>
+                    <button class="rounded-pill">
+                        No me interesa
+                    </button>
                 {% else %}
                     {% csrf_token %}
-                    <ul>
-                        <button class="rounded-pill">
-                            Me interesa
-                        </button>
-                    </ul>
+                    <button class="rounded-pill">
+                        Me interesa
+                    </button>
                 {% endif %}
             </form>
         {% endif %}
