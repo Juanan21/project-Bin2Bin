@@ -50,11 +50,9 @@
                     <label for="categoria" class="form-label">Categoría</label>
                     <select class="form-select" id="categoria" name="categorias" required>
                         <option value="" selected disabled>Selecciona una categoría</option>
-                        <option value="electrodomésticos">Electrodomésticos</option>
-                        <option value="juguetes">Juguetes</option>
-                        <option value="muebles">Muebles</option>
-                        <option value="ropa">Ropa</option>
-                        <option value="otros">Otros</option>
+                        {% for cat in categorias %}
+                          <option value="{{ cat.id }}">{{ cat }}</option>
+                        {% endfor %}
                     </select>
                     <div class="form-text">Selecciona una sola categoría para tu producto.</div>
                 </div>

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth import login, logout, authenticate
 from .forms import publiform
-from .models import publi, Interesado
+from .models import publi, Interesado, categoria
 from user.models import user_img
 #Se llama decorador
 from django.contrib.auth.decorators import login_required
@@ -12,11 +12,12 @@ from django.core.mail import send_mail, EmailMessage
 
 def publis(request):
     if request.method == 'GET':
+        categorias = categoria.objects.all()
         try:
             img_obj = get_object_or_404(user_img, usuario=request.user.id)
-            return render(request, 'publi.html', {'form': publiform, 'imagen':img_obj})
+            return render(request, 'publi.html', {'form': publiform, 'imagen':img_obj, 'categorias':categorias})
         except:
-            return render(request, 'publi.html', {'form': publiform})
+            return render(request, 'publi.html', {'form': publiform, 'categorias':categorias})
     else:
         nueva = publi.objects.create(
             titulo=request.POST.get("titulo"),
@@ -26,9 +27,11 @@ def publis(request):
             imagen2=request.FILES.get("imagen2"),
             imagen3=request.FILES.get("imagen3"),
         )
-        categoria_id = request.POST.get("categorias_id")
+        categoria_id = request.POST.get("categorias")
         if categoria_id:
             nueva.categorias.set([categoria_id])
+        else:
+            nueva.categorias.clear()
         """
         t = publiform(request.POST, request.FILES)
         nueva_publi = t.save(commit=False)
