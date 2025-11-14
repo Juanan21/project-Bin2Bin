@@ -41,6 +41,8 @@
     margin-bottom: 25px;
 }
 .small img{
+    transform-origin: center center;
+    transition-timing-function: linear;
     cursor: pointer;
     width: 80px;
     height: 80px;

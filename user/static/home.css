@@ -12,7 +12,6 @@
   grid-template-columns: repeat(5,1fr);
   column-width: 100%;
   gap: 30px;
-  background: rgba(242, 247, 248, 0.44);
   border-radius: 8px;
   flex-direction: column;
   padding: 25px;  
