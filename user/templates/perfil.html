@@ -110,6 +110,7 @@ function activateTab(evt, tabName) {
                     <div class="posts d-flex flex-wrap justify-content-center">
                         <div class="post">
                             {% for pub in publicaciones %}
+                                {% if pub.archivado == False %}
                                 <a href="{% url 'post' pub.id %}">
                                     {% if pub.imagen.url != blank %}
                                         <img src="{{pub.imagen.url}}" alt="Publicación">
@@ -117,6 +118,7 @@ function activateTab(evt, tabName) {
                                         <p>No hay imágenes</p>
                                     {% endif %}
                                 </a>
+                                {% endif %}
                             {% empty %}
                                 <p>No has publicado nada todavía.</p>
                             {% endfor %}

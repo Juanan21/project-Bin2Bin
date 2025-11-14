@@ -16,6 +16,7 @@ class publi(models.Model):
     imagen = models.ImageField(upload_to='imagenes/', blank=True)
     imagen2 = models.ImageField(upload_to='imagenes/', blank=True)
     imagen3 = models.ImageField(upload_to='imagenes/', blank=True)
+    archivado = models.BooleanField(default=False) 
     
     categorias = models.ManyToManyField(categoria)
 

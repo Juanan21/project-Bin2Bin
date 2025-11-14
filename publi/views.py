@@ -48,7 +48,8 @@ def post(request, post_id):
         usuario1 = request.user.id
         usuario2 = publicacion.usuario.id
         if usuario1 == usuario2:
-            publicacion.delete()
+            publicacion.archivado = True
+            publicacion.save()
             return redirect('perfil')
         else:
             hay_interesado = Interesado.objects.filter(publicante=publicacion.usuario, interesado=request.user, pk_post=post_id).exists()

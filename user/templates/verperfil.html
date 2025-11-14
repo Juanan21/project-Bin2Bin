@@ -51,6 +51,7 @@
         <div class="posts">
             <div class="post">
                 {% for pub in publicaciones %}
+                    {% if pub.archivado == False %}
                     <a href="{% url 'post' pub.id %}">
                         {% if pub.imagen.url != blank %}
                             <img src="{{pub.imagen.url}}"/>                
@@ -58,6 +59,7 @@
                             <a>no hay imagenes</a>
                     {% endif %}
                     </a>
+                    {% endif %}
                 {% empty %}
                     {% if request.path != "/perfil/" %}
                         <li>No se han encontrado publicaciones.</li>
