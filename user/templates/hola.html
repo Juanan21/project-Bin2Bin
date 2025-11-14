@@ -25,11 +25,9 @@ function closeNav() {
 <body style="background-color: rgba(242, 247, 248, 0.44);">
     <nav class="navbar navbar-expand-lg" style="background-color: #1abea374;" data-bs-theme="light">
         <div class="container-fluid">
-
             <a class="navbar-brand" href="/">
-                <img style="width: 200px; height: 100px; margin-bottom:-13px; opacity:0.65" src="\static\img\small_logo.png" alt="Bin2Bin"/>
+                <img style="width: 150px; height: 75px; margin-bottom:-13px;margin-top: -13px; opacity:0.65" src="\static\img\small_logo.png" alt="Bin2Bin"/>
             </a>
-
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -38,8 +36,6 @@ function closeNav() {
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <button class="btn btn-openpanel" onclick="openNav()">☰ Categorías</button>
                 </ul>
-                  
-
 
                 <div id="mySidepanel" class="sidepanel">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a>
@@ -87,7 +83,6 @@ function closeNav() {
                                     <a href="/publicar" class="nav-link active">publicar</a>
                                 </li>
                             {% endif %}
-            
                         {% else %}
                             {% if request.path != "/perfil/" %}
                                 <li class="nav-item">
@@ -110,7 +105,26 @@ function closeNav() {
                             {% endif %}
                         {% endif %}
                     {% endif %}
+                    {% if not user.is_authenticated %}
+                        <li>
+                            <form action="/signup/" method="GET">
+                                {% csrf_token %}
+                                <button class="nav-link active">
+                                    crear cuenta
+                                </button>
+                            </form>
+                        </li>
+                        <li>
+                            <form action="/signin/">
+                                {% csrf_token %}
+                                <button class="nav-link active">
+                                    iniciar sesion
+                                </button>
+                            </form>
+                        </li>
+                        {% endif %}
                 </ul>
+
                 {% if request.path == "/" %}
                     <form class="d-flex" role="search" action="/">
                         <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search"/>
@@ -121,24 +135,6 @@ function closeNav() {
             </div>
         </div>
     </nav>
-
-
-    
-    
-    {% if not user.is_authenticated %}
-        <form action="/signup/" method="GET">
-            {% csrf_token %}
-            <button>
-                crear cuenta
-            </button>
-        </form>
-        <form action="/signin/">
-            {% csrf_token %}
-            <button>
-                iniciar sesion
-            </button>
-        </form>
-    {% endif %}
 
     {% block content %}
         {% load static %}

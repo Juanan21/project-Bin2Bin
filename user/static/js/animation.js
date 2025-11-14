@@ -1,9 +1,9 @@
 /* Setup chat, dwww */
 (function loadScrollReveal() {
-  const script = document.createElement("script");
-  script.src = "https://unpkg.com/scrollreveal";
-  script.onload = iniciarAnimaciones;
-  document.head.appendChild(script);
+    const script = document.createElement("script");
+    script.src = "https://unpkg.com/scrollreveal";
+    script.onload = iniciarAnimaciones;
+    document.head.appendChild(script);
 })();
 
 /*-- Animación --*/
@@ -38,4 +38,4 @@ function iniciarAnimaciones() {
         duration: 650,
         reset: false,
     });
-  }
+    }
