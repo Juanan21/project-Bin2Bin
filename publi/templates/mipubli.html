@@ -57,12 +57,9 @@
             </a>
                 , {{ post.creacion|date:"d M Y H:i" }}
             {% else %}
-                {{ post.usuario }}, {{ post.creacion|date:"d M Y H:i" }}
+            - {{ post.usuario }}, {{ post.creacion|date:"d M Y H:i" }}
             {% endif %}
             <p>{{ post.descripcion }}</p>
-
-        
-
 
         {% if request.user.id == post.usuario.id %}
 
