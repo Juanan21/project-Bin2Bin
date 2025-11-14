@@ -11,21 +11,29 @@
         {% csrf_token %}
         <div class="row">
             <div class="col-md-6 text-center">
-                <label for="imagen" class="form-label">Imágenes del producto</label>
+                <label for="imagen" class="form-label">Imágen de portada del producto</label>
                 <div id="preview-container" class="d-flex justify-content-center gap-2 flex-wrap">
                     
                     <img id="default-image" src="/static/img/noimg.jpg" alt="Imagen predeterminada" class="img-thumbnail" style="width:300px; height:300px; object-fit:cover;">
                 </div>
-                <input class="form-control" type="file" id="imagen" name="imagen" accept="image/*" required>
-
-                <label for="imagen2" class="form-label mt-2">Imagen 2 (opcional)</label>
-                <input class="form-control" type="file" id="imagen2" name="imagen2" accept="image/*">
-
-                <label for="imagen3" class="form-label mt-2">Imagen 3 (opcional)</label>
-                <input class="form-control" type="file" id="imagen3" name="imagen3" accept="image/*">
-
+                <div class="mt-4">
+                  <input class="form-control" type="file" id="imagen" name="imagen" accept="image/*" style="display: none" required>
+                  <label for="imagen" class="btn btn-outline-success">
+                    <i class="bi bi-upload"></i> Subir imagen de portada
+                  </label> 
+                </div>
+                <div class="mt-3">
+                  <label for="imagen2" class="btn btn-outline-success">
+                    <i class="bi bi-upload"></i> Subir imagen 2
+                  </label>
+                  <input class="form-control" type="file" id="imagen2" name="imagen2" accept="image/*" style="display: none">
+                  <label for="imagen3" class="btn btn-outline-success">
+                    <i class="bi bi-upload"></i> Subir imagen 3
+                  </label>
+                  <input class="form-control" type="file" id="imagen3" name="imagen3" accept="image/*" style="display: none">
+                </div>
                 <div class="form-text">
-                    Puedes seleccionar hasta 3 imágenes. (Obligatorio al menos una)
+                    
                 </div>
                 <div id="mensaje" class="mt-2"></div>
             </div>
