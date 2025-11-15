@@ -75,14 +75,16 @@
             {% empty %}
                 <ul><li>No hay interesados</li></ul>
             {% endfor %}
-
+        <div class="btn-wrap">
             <form action="" method="POST">
                 {% csrf_token %}
                 <button class="rounded-pill">
                     Eliminar
                 </button>
             </form>
+        </div>
         {% else %}
+        <div class="btn-wrap">
             <form action="" method="POST">
                 {% if hay_interesado %}
                     {% csrf_token %}
@@ -97,7 +99,7 @@
                 {% endif %}
             </form>
         {% endif %}
-            </div>
+        </div>
         </div>
         <script src="/static/js/post.js"></script>
     </div>

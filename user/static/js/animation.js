@@ -39,3 +39,12 @@ function iniciarAnimaciones() {
         reset: false,
     });
     }
+
+/*Esto es JS normal*/
+function openPanel() {
+    document.getElementById("categoriesPanel").classList.add("open");
+}
+
+function closePanel() {
+    document.getElementById("categoriesPanel").classList.remove("open");
+}

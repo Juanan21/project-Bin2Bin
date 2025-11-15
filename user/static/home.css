@@ -2,6 +2,7 @@
 :root {
   --primary-color: #1abea374;
   --secondary-color: rgba(63, 79, 74, 0.503);
+  --btn-color:  #072f288f;
   --border: rgba(50, 65, 65, 0.196);
   --box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.053);
 }
@@ -9,6 +10,7 @@
 
 .publicaciones {
   display: grid;
+  position: relative;
   grid-template-columns: repeat(5,1fr);
   column-width: 100%;
   gap: 30px;
@@ -18,13 +20,30 @@
 }
 
 .card-publi {
-  transition: transform 0.2s ease-in, box-shadow 0.2s ease;
+  height:390px;
   display: flex;
+  padding-bottom: 50px;
   flex-direction: column;
   background-color: white;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease-in, box-shadow 0.2s ease;
 }
 
+.card-publi .rounded-pill {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 4px 5px;
+  margin: 10px;
+  color: var(--btn-color);
+  border-style: inherit;
+  background-color: var(--primary-color);
+  transition: color 0.5s ease;
+}
+
+.rounded-pill:hover {
+  color: white;
+}
 .card-publi:hover {
   transform: scale(1.05) !important;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.056);
@@ -127,7 +146,10 @@
 }
 
 .navbar-brand {
-  transition: opacity 0.2s ease-in
+  width: 150px; 
+  height: 108px;
+  margin: -10px 0px -14px 15px;
+  transition: opacity 0.2s ease-in;
 }
 .navbar-brand:hover {
   opacity: 0.60;
@@ -135,4 +157,10 @@
 
 .nav-link .active:hover{
   color:aliceblue;
+}
+
+.navbar-brand img {
+  margin-top: -4px;
+  height: 100px;
+  width: fit-content;
 }

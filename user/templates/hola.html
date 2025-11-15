@@ -26,7 +26,7 @@ function closeNav() {
     <nav class="navbar navbar-expand-lg" style="background-color: #1abea374;" data-bs-theme="light">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
-                <img style="width: 150px; height: 75px; margin-bottom:-13px;margin-top: -13px; opacity:0.65" src="\static\img\small_logo.png" alt="Bin2Bin"/>
+                <img src="\static\img\logo_nav.png" alt="Bin2Bin"/>
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,7 @@ function closeNav() {
                 </a>
                 </div>
             {% endif %}
-            
+    
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {% if user.is_authenticated %}
@@ -141,7 +141,6 @@ function closeNav() {
     <div class="container">
         <div class="publicaciones">
                 {% for pub in publicaciones %}
-                {% if pub.archivado == False %}
                 <div class="card-publi">
                     {% if pub.imagen.url != blank %}
                     <a href="{% url 'post' pub.id %}">
@@ -156,19 +155,25 @@ function closeNav() {
                     <div class="details">
                         <a href="{% url 'post' pub.id %}">
                         <strong>{{ pub.titulo }}</strong> <!--<strong>{{ pub.descripcion}}</strong> -->
-                        <br>{{ pub.usuario }}<br> - {{ pub.creacion|date:"d M Y H:i" }}
+                        <br>{{ pub.usuario }}<br> <!-- - {{ pub.creacion|date:"d M Y H:i" }}-->
                         </a>
+                        {% for cat in pub.categorias.all %}
+                        <a href="/?categoria={{ cat.id }}">
+                            <button class="rounded-pill" link="">
+                                <span class="categoria">{{ cat.titulo }}</span>
+                            </button>
+                        </a>
+                        {% endfor %}
                     </div>
                 </div>
-                {% endif %}
                     
-                {% empty %}
-                    {% if request.path != "/perfil/" %}
-                        <li>No se han encontrado publicaciones.</li>
-                    {% else %}
-                        <li>No has publicado nada todavía.</li>
-                    {% endif %}
-                {% endfor %}
+            {% empty %}
+                {% if request.path != "/perfil/" %}
+                    <li>No se han encontrado publicaciones.</li>
+                {% else %}
+                    <li>No has publicado nada todavía.</li>
+                {% endif %}
+            {% endfor %}
             
             </div>
         </div>
