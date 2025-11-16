@@ -139,32 +139,44 @@ h2 {
   
 }
 
-.publis .posts {
-  flex: 1;
-  gap: 10px;
-  overflow: hidden;
-  padding: 2px;
+.box.publis .posts {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 15px !important;
+  padding: 10px !important;
+  align-items: start;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.publis .post {
-  padding-left: 15px;
-  overflow: hidden;
-  width: fit-content;
+.box.publis .post {
+  width: 170px !important;
+  display: block !important;
+  box-sizing: border-box;
 }
 
-.publis .posts img {
-  padding: 10px;
+.box.publis .post img {
+  display: block !important;
+  width: 100% !important;
   height: 180px;
-  width: 170px;
-  border-radius: 15%;
   object-fit: cover;
-  transition: transform 0.2s ease;
+  border-radius: 12px;
+  padding: 4px;
+  transition: transform 0.18s ease;
 }
 
-.publis .posts img:hover {
+/* Hover effect */
+.box.publis .post img:hover {
   transform: scale(1.1);
 }
 
+@media (max-width: 600px) {
+  .box.publis .posts {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/*----------------------*/
 .tabcontent {
   padding: 6px 12px;
   border-top: none;

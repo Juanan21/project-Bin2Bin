@@ -73,10 +73,13 @@
     bottom: 30px;
     right:80px;
 }
-.rounded-pill {
+.btn-success {
     color: var(--secondary-color);
     border: none;
     background-color: var(--primary-color);
-    transition: color 0.5s ease;
+    transition: color 0.5s ease, background-color 0.5s ease;
 }
 
+.btn-success:hover {
+    background-color: var(--secondary-color) !important;
+}

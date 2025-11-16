@@ -1,8 +1,28 @@
+:root {
+  --primary-color: #1abea374;
+  --secondary-color: rgba(63, 79, 74, 0.503);
+  --btn-color:  #072f288f;
+  --btn: #047e69ad;
+}
 body{
-  background-color: rgba(63, 160, 84, 0.527);
+  background-color: #1abea374;
 }
 .form-container{
     max-width: 450px;  
   margin: 0 auto;    
   padding: 2rem;     
+}
+
+.btn-success {
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+    transition: color 0.5s ease, background-color 0.5s ease;
+}
+
+.btn-success:hover {
+    background-color: var(--btn) !important;
+}
+
+.btn-outline-success:hover {
+    background-color: var(--btn) !important;
 }

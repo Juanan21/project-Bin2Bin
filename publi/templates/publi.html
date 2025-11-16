@@ -4,10 +4,9 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'publi.css' %}">
 {% endblock %}
-
 {% block content %}
 <div class="container mt-4">
-    <form action="/publicar/" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+    <form action="/publicar/" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate style="margin-top: 70px; margin-right: 80px;">
         {% csrf_token %}
         <div class="row">
             <div class="col-md-6 text-center">

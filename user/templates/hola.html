@@ -160,7 +160,7 @@ function closeNav() {
                         {% for cat in pub.categorias.all %}
                         <a href="/?categoria={{ cat.id }}">
                             <button class="rounded-pill" link="">
-                                <span class="categoria">{{ cat.titulo }}</span>
+                                <span class="categoria"><i class="bi bi-tag-fill"></i>  {{ cat.titulo }}</span>
                             </button>
                         </a>
                         {% endfor %}

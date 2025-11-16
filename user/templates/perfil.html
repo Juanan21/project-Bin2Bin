@@ -84,122 +84,69 @@ function activateTab(evt, tabName) {
     </div>
 
 <!-- publi stuff -->
-    <div class="box publis">
-        <div class="tab-container">
-            <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="mis-tab" data-bs-toggle="tab"
-                            data-bs-target="#mis_publicaciones" type="button" role="tab"
-                            aria-controls="mis_publicaciones" aria-selected="true">
-                        Mis publicaciones
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="interes-tab" data-bs-toggle="tab"
-                            data-bs-target="#publicaciones_interesan" type="button" role="tab"
-                            aria-controls="publicaciones_interesan" aria-selected="false">
-                        Publicaciones que me interesan
-                    </button>
-                </li>
-            </ul>
-        
-            <!-- Contenedor de las publicaciones -->
-            <div class="tab-content" id="myTabContent">
-                <!-- Mis publicaciones -->
-                <div class="tab-pane fade show active" id="mis_publicaciones" role="tabpanel" aria-labelledby="mis-tab">
-                    <div class="posts d-flex flex-wrap justify-content-center">
-                        <div class="post">
-                            {% for pub in publicaciones %}
-                                {% if pub.archivado == False %}
-                                <a href="{% url 'post' pub.id %}">
-                                    {% if pub.imagen.url != blank %}
-                                        <img src="{{pub.imagen.url}}" alt="Publicación">
-                                    {% else %}
-                                        <p>No hay imágenes</p>
-                                    {% endif %}
-                                </a>
-                                {% endif %}
-                            {% empty %}
-                                <p>No has publicado nada todavía.</p>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
+<div class="box publis">
+    <div class="tab-container">
+        <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="mis-tab" data-bs-toggle="tab"
+                        data-bs-target="#mis_publicaciones" type="button" role="tab"
+                        aria-controls="mis_publicaciones" aria-selected="true"
+                        style="color: #072f288f">
+                    Mis publicaciones
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="interes-tab" data-bs-toggle="tab"
+                        data-bs-target="#publicaciones_interesan" type="button" role="tab"
+                        aria-controls="publicaciones_interesan" aria-selected="false"
+                        style="color: #072f288f;">
+                    Publicaciones que me interesan
+                </button>
+            </li>
+        </ul>
 
-                <!-- Publicaciones que me interesan -->
-                <div class="tab-pane fade" id="publicaciones_interesan" role="tabpanel" aria-labelledby="interes-tab">
-                    <div class="posts d-flex flex-wrap justify-content-center">
+        <div class="tab-content" id="myTabContent">
+
+            <!-- MIS PUBLICACIONES -->
+            <div class="tab-pane fade show active" id="mis_publicaciones" role="tabpanel">
+                <div class="posts">
+                    {% for pub in publicaciones %}
+                        {% if not pub.archivado %}
                         <div class="post">
-                            {% for pub in publis_interesado %}
-                                <a href="{% url 'post' pub.id %}">
-                                    {% if pub.imagen.url != blank %}
-                                        <img src="{{pub.imagen.url}}" alt="Publicación interesada">
-                                    {% else %}
-                                        <p>No hay imágenes</p>
-                                    {% endif %}
-                                </a>
-                            {% empty %}
-                                <p>No tienes publicaciones que te interesen.</p>
-                            {% endfor %}
+                            <a href="{% url 'post' pub.id %}">
+                                {% if pub.imagen.url != blank %}
+                                    <img src="{{ pub.imagen.url }}" alt="Publicación">
+                                {% else %}
+                                    <p>No hay imágenes</p>
+                                {% endif %}
+                            </a>
                         </div>
-                    </div>
+                        {% endif %}
+                    {% empty %}
+                        <p>No has publicado nada todavía.</p>
+                    {% endfor %}
                 </div>
             </div>
+
+            <!-- PUBLICACIONES QUE ME INTERESAN -->
+            <div class="tab-pane fade" id="publicaciones_interesan" role="tabpanel">
+                <div class="posts">
+                    {% for pub in publis_interesado %}
+                    <div class="post">
+                        <a href="{% url 'post' pub.id %}">
+                            {% if pub.imagen.url != blank %}
+                                <img src="{{ pub.imagen.url }}" alt="Publicación interesada">
+                            {% else %}
+                                <p>No hay imágenes</p>
+                            {% endif %}
+                        </a>
+                    </div>
+                    {% empty %}
+                        <p>No tienes publicaciones que te interesen.</p>
+                    {% endfor %}
+                </div>
+            </div>
+ {% endblock %}
         </div>
     </div>
 </div>
-
-<!--
-<ul>
-    <li>
-        <h5>usuario: {{request.user.username}}</h5>
-    </li>
-    <li>
-        <h5>nombre: {{request.user.first_name}}</h5>
-    </li>
-    <li>
-        <h5>apellido: {{request.user.last_name}}</h5>
-    </li>
-    <li>
-        <h5>email: {{request.user.email}}</h5>
-    </li>
-    
-
-    <form action="/perfil/" method="POST" enctype="multipart/form-data" class="Fotobtn">
-        {% csrf_token %}
-        {{form1.as_p}} 
-        <button>
-            cambiar foto
-        </button>
-    </form>
-    <form action="/perfil/" method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button
-            name="update_email">modificar email
-        </button>
-        {{error}}
-    </form>
-</ul>
-<h2>Mis publicaciones</h2>
-<ul>
-  {% for pub in publicaciones %}
-    <li>
-      <a href="{% url 'post' pub.id %}">
-        <strong>{{ pub.titulo }}</strong> - <strong>{{ pub.descripcion}}</strong> - <strong>{{ pub.imagen}}</strong> - {{ pub.creacion|date:"d M Y H:i" }} <br></a>
-    </li>
-  {% empty %}
-    <li>No has publicado nada todavía.</li>
-  {% endfor %}
-</ul>
-{% endblock %}
-
-        <form method="POST" class="form2">
-            {% csrf_token %}
-            <div class="card">
-                <div class="card-body">
-                    <textarea class="form2-control mb-2" name="descripcion" rows="4" placeholder="Escribe una descripcion">{{ descrip.descripcion }}</textarea>
-                    <button class="btn btn-success" type="submit" name="update_descripcion">Enviar</button>
-                </div>
-            </div>
-        </form>

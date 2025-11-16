@@ -78,7 +78,7 @@
         <div class="btn-wrap">
             <form action="" method="POST">
                 {% csrf_token %}
-                <button class="rounded-pill">
+                <button class="btn btn-success" style="background-color: #1abea374; border: none;">
                     Eliminar
                 </button>
             </form>
@@ -88,12 +88,12 @@
             <form action="" method="POST">
                 {% if hay_interesado %}
                     {% csrf_token %}
-                    <button class="rounded-pill">
+                    <button class="btn btn-success" style="background-color: #1abea374; border: none;">
                         No me interesa
                     </button>
                 {% else %}
                     {% csrf_token %}
-                    <button class="rounded-pill">
+                    <button class="btn btn-success" style="background-color: #1abea374; border: none;">
                         Me interesa
                     </button>
                 {% endif %}

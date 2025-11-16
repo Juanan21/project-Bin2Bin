@@ -3,6 +3,7 @@
   --primary-color: #1abea374;
   --secondary-color: rgba(63, 79, 74, 0.503);
   --btn-color:  #072f288f;
+  --btn: #047e69ad;
   --border: rgba(50, 65, 65, 0.196);
   --box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.053);
 }
@@ -163,4 +164,21 @@
   margin-top: -4px;
   height: 100px;
   width: fit-content;
+}
+
+.btn-outline-success:hover {
+    background-color: var(--btn); /* the hover background color you want */
+    color: white;                /* text color */
+    border-color: var(--btn);
+}
+
+.btn-outline-primary {
+  border-color: var(--btn);
+  color: var(--btn-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--btn); /* the hover background color you want */
+    color: white;                /* text color */
+    border-color: var(--btn);
 }
