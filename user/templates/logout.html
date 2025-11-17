@@ -1,22 +1,48 @@
-{% extends 'hola.html' %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static '/img/Bin2Bin.png' %}" type="image/x-icon">
+    <title>Bin2Bin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'signin.css' %}">
+    </head> 
+<body class="bg-light d-flex align-items-center justify-content-center" style="height: 100vh;">
+    <div class="container" style="max-width: 400px;">
+        <div class="card shadow-sm">
+             <div class="card-body">
+                <img src="/static/img/logout.png" alt="Logo" class="img-fluid mx-auto d-block w-75" style="width: 100px; height: auto;">
+                
+                <h3 class="text-center mb-4">¿Estás seguro de cerrar sesión?</h3>
+                <form action="/" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-success mt-2 offset-md-3 w-50 rounded-pill">Cerrar Sesión</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 
-<nav>
-    <ul>
-        <li>
-           <a href="/">inicio</a> 
-        </li>
-    </ul>
-</nav>
+    <script>
+        (() => {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
 
-{% block content %}
-<h1>¿Estás seguro de cerrar sesión?</h1>
-<ul>
-    <form action="/" method="POST">
-        {% csrf_token %}
-        <button>
-            confirmar
-        </button>
-
-    </form>
-</ul>
-{% endblock %}
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+            }, false)
+        })
+        })()
+    </script>
+    </body>
+</html>

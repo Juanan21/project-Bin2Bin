@@ -60,7 +60,7 @@ function closeNav() {
                         {% if request.path != "/publicar/" %}
                             {% if request.path != "/perfil/" %}
                                 <li class="nav-item">
-                                    <a href="/logout" class="btn btn-openpanel">cerrar sesion</a>
+                                    <a href="/logout" class="btn btn-openpanel">cerrar sesión</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="/publicar" class="btn btn-openpanel">publicar</a>
@@ -77,7 +77,7 @@ function closeNav() {
                                 </li>
                             {% else %}
                                 <li class="nav-item">
-                                    <a href="/logout" class="nav-link active">cerrar sesion</a>
+                                    <a href="/logout" class="nav-link active">cerrar sesión</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="/publicar" class="nav-link active">publicar</a>
@@ -86,7 +86,7 @@ function closeNav() {
                         {% else %}
                             {% if request.path != "/perfil/" %}
                                 <li class="nav-item">
-                                    <a href="/logout" class="nav-link active">cerrar sesion</a>
+                                    <a href="/logout" class="nav-link active">cerrar sesión</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="/perfil" class="nav-link active d-flex align-items-center">
@@ -100,7 +100,7 @@ function closeNav() {
                                 </li>
                             {% else %}
                                 <li class="nav-item">
-                                    <a href="/logout" class="nav-link active">cerrar sesion</a>
+                                    <a href="/logout" class="nav-link active">cerrar sesión</a>
                                 </li>
                             {% endif %}
                         {% endif %}
@@ -118,7 +118,7 @@ function closeNav() {
                             <form action="/signin/">
                                 {% csrf_token %}
                                 <button class="nav-link active">
-                                    iniciar sesion
+                                    iniciar sesión
                                 </button>
                             </form>
                         </li>
