@@ -141,6 +141,7 @@ function closeNav() {
     <div class="container">
         <div class="publicaciones">
                 {% for pub in publicaciones %}
+                {% if not pub.archivado %}
                 <div class="card-publi">
                     {% if pub.imagen.url != blank %}
                     <a href="{% url 'post' pub.id %}">
@@ -166,6 +167,7 @@ function closeNav() {
                         {% endfor %}
                     </div>
                 </div>
+                {% endif %}
                     
             {% empty %}
                 {% if request.path != "/perfil/" %}
